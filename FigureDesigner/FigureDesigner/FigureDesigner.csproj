@@ -78,12 +78,21 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Figure.cs" />
+    <Compile Include="Figures\1DFigures\Line.cs" />
+    <Compile Include="Figures\1DFigures\Ray.cs" />
+    <Compile Include="Figures\1DFigures\Segment.cs" />
+    <Compile Include="Figures\Figure1D.cs" />
+    <Compile Include="Figures\Figure2D.cs" />
+    <Compile Include="Helpers\FigureFactory.cs" />
+    <Compile Include="Helpers\FigureType.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Helpers\Point.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -109,6 +118,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Figures\2DFigures\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

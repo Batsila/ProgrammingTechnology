@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FigureDesigner.Helpers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,6 +21,12 @@ namespace FigureDesigner
     /// </summary>
     public partial class MainWindow : Window
     {
+        public Color LineColor { get; private set; }
+        public Color FigureColor { get; private set; }
+        public FigureType FigureType { get; private set; }
+        public Point StartPoint { get; private set; }
+        public Point EndPoint { get; private set; }
+
         public MainWindow()
         {
             InitializeComponent();
@@ -27,17 +34,57 @@ namespace FigureDesigner
 
         private void LineColor_SelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<Color?> e)
         {
-            //TODO
+            LineColor = ColorLine.SelectedColor.Value;
         }
 
         private void FigureColor_SelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<Color?> e)
         {
-            //TODO
+            FigureColor = ColorFigure.SelectedColor.Value;
         }
 
         private void Figure_Checked(object sender, RoutedEventArgs e)
         {
-            //TODO
+            RadioButton rb = (RadioButton)sender;
+            if (rb.IsChecked.HasValue && rb.IsChecked.Value)
+            {
+                FigureType = (FigureType)Enum.Parse(typeof(FigureType), rb.Name);
+            }
         }
+
+        private void SetStartPoint(object sender, MouseEventArgs e)
+        {
+            StartPoint = new Point()
+            {
+                X = e.GetPosition(DrawCanvas).X,
+                Y = e.GetPosition(DrawCanvas).Y
+            };
+        }
+
+        private void SetEndPoint(object sender, MouseEventArgs e)
+        {
+            EndPoint = new Point
+            {
+                X = e.GetPosition(DrawCanvas).X,
+                Y = e.GetPosition(DrawCanvas).Y
+            };
+
+            if (StartPoint != null && EndPoint != null &&
+                Point.GetDistance(StartPoint, EndPoint) > 10)
+            {
+                using (var factory = new FigureFactory(FigureType,
+                    LineColor,
+                    FigureColor,
+                    DrawCanvas,
+                    StartPoint,
+                    EndPoint))
+                {
+                    factory.CreateFigure();
+                }
+            }
+
+            StartPoint = null;
+            EndPoint = null;
+        }
+
     }
 }
