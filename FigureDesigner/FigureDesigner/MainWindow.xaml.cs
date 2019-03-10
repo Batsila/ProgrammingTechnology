@@ -104,5 +104,10 @@ namespace FigureDesigner
                 SelectedElement = null;
             }
         }
+
+        private void ClearCanvas(object sender, RoutedEventArgs e)
+        {
+            DrawCanvas.Children.RemoveRange(0, DrawCanvas.Children.Count);
+        }
     }
 }

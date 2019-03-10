@@ -69,6 +69,7 @@
                     <RadioButton Name="Triangle" Margin="10,105,0,0" GroupName="Figures" Checked="Figure_Checked">Triangle</RadioButton>
                     <RadioButton Name="Rectangle" Margin="10,125,0,0" GroupName="Figures" Checked="Figure_Checked">Rectangle</RadioButton>
                     <RadioButton Name="Square" Margin="10,145,0,0" GroupName="Figures" Checked="Figure_Checked">Square</RadioButton>
+                    <Button Name="Clear" Margin="15,170,15,5" Click="ClearCanvas">Clear Canvas</Button>
                 </Grid>
             </Grid>
 
