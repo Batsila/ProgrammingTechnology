@@ -1,4 +1,5 @@
 ﻿using FigureDesigner.Figures._1DFigures;
+using FigureDesigner.Figures._2DFigures;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -60,6 +61,24 @@ namespace FigureDesigner.Helpers
                         StartPoint = _startPoint,
                         EndPoint = _endPoint,
                         LineColor = _lineColor
+                    };
+                    break;
+                case FigureType.Ellipse:
+                    figure = new Ellipse
+                    {
+                        ControlPoint1 = _startPoint,
+                        ControlPoint2 = _endPoint,
+                        LineColor = _lineColor,
+                        FigureColor = _figureColor
+                    };
+                    break;
+                case FigureType.Circle:
+                    figure = new Circle
+                    {
+                        ControlPoint1 = _startPoint,
+                        ControlPoint2 = _endPoint,
+                        LineColor = _lineColor,
+                        FigureColor = _figureColor
                     };
                     break;
                 default:

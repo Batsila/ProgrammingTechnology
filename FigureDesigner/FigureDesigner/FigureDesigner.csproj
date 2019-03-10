@@ -82,6 +82,8 @@
     <Compile Include="Figures\1DFigures\Line.cs" />
     <Compile Include="Figures\1DFigures\Ray.cs" />
     <Compile Include="Figures\1DFigures\Segment.cs" />
+    <Compile Include="Figures\2DFigures\Circle.cs" />
+    <Compile Include="Figures\2DFigures\Ellipse.cs" />
     <Compile Include="Figures\Figure1D.cs" />
     <Compile Include="Figures\Figure2D.cs" />
     <Compile Include="Helpers\FigureFactory.cs" />
@@ -119,8 +121,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Figures\2DFigures\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

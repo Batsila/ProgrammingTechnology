@@ -64,10 +64,11 @@
                     <RadioButton Name="Segment" Margin="10,5,0,0" GroupName="Figures" Checked="Figure_Checked" IsChecked="True">Segment</RadioButton>
                     <RadioButton Name="Ray" Margin="10,25,0,0" GroupName="Figures" Checked="Figure_Checked">Ray</RadioButton>
                     <RadioButton Name="Line" Margin="10,45,0,0" GroupName="Figures" Checked="Figure_Checked">Line</RadioButton>
-                    <RadioButton Name="Circle" Margin="10,65,0,0" GroupName="Figures" Checked="Figure_Checked">Circle</RadioButton>
-                    <RadioButton Name="Triangle" Margin="10,85,0,0" GroupName="Figures" Checked="Figure_Checked">Triangle</RadioButton>
-                    <RadioButton Name="Rectangle" Margin="10,105,0,0" GroupName="Figures" Checked="Figure_Checked">Rectangle</RadioButton>
-                    <RadioButton Name="Square" Margin="10,125,0,0" GroupName="Figures" Checked="Figure_Checked">Square</RadioButton>
+                    <RadioButton Name="Ellipse" Margin="10,65,0,0" GroupName="Figures" Checked="Figure_Checked">Ellipse</RadioButton>
+                    <RadioButton Name="Circle" Margin="10,85,0,0" GroupName="Figures" Checked="Figure_Checked">Circle</RadioButton>
+                    <RadioButton Name="Triangle" Margin="10,105,0,0" GroupName="Figures" Checked="Figure_Checked">Triangle</RadioButton>
+                    <RadioButton Name="Rectangle" Margin="10,125,0,0" GroupName="Figures" Checked="Figure_Checked">Rectangle</RadioButton>
+                    <RadioButton Name="Square" Margin="10,145,0,0" GroupName="Figures" Checked="Figure_Checked">Square</RadioButton>
                 </Grid>
             </Grid>
 

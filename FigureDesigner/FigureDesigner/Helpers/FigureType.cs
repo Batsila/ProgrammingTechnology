@@ -11,9 +11,10 @@ namespace FigureDesigner.Helpers
         Segment = 0,
         Ray = 1,
         Line = 2,
-        Circle = 3,
-        Triangle = 4,
-        Rectangle = 5,
-        Square = 6
+        Ellipse = 3,
+        Circle = 4,
+        Triangle = 5,
+        Rectangle = 6,
+        Square = 7
     }
 }
