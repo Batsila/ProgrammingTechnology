@@ -83,6 +83,8 @@
                 Grid.Column="2"
                 ClipToBounds="True"
                 MouseLeftButtonDown="SetStartPoint"
-                MouseLeftButtonUp="SetEndPoint"/>
+                MouseLeftButtonUp="SetEndPoint"
+                MouseRightButtonDown="SelectElement"
+                MouseRightButtonUp="ReplaceElement"/>
     </Grid>
 </Window>

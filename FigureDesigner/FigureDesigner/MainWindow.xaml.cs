@@ -26,6 +26,7 @@ namespace FigureDesigner
         public FigureType FigureType { get; private set; }
         public Point StartPoint { get; private set; }
         public Point EndPoint { get; private set; }
+        public Shape SelectedElement { get; private set;}
 
         public MainWindow()
         {
@@ -86,5 +87,22 @@ namespace FigureDesigner
             EndPoint = null;
         }
 
+        private void SelectElement(object sender, MouseEventArgs e)
+        {
+            if (e.Source is Shape)
+            {
+                SelectedElement = (Shape)e.Source;
+            }
+        }
+
+        private void ReplaceElement(object sender, MouseEventArgs e)
+        {
+            if (SelectedElement != null)
+            {
+                Canvas.SetTop(SelectedElement, e.GetPosition(DrawCanvas).Y);
+                Canvas.SetLeft(SelectedElement, e.GetPosition(DrawCanvas).X);
+                SelectedElement = null;
+            }
+        }
     }
 }
