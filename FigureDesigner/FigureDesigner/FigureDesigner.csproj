@@ -87,6 +87,7 @@
     <Compile Include="Figures\2DFigures\SymmetricalFigures\Rectangle.cs" />
     <Compile Include="Figures\2DFigures\SymmetricalFigure.cs" />
     <Compile Include="Figures\2DFigures\SymmetricalFigures\Square.cs" />
+    <Compile Include="Figures\2DFigures\SymmetricalFigures\Triangle.cs" />
     <Compile Include="Figures\Figure1D.cs" />
     <Compile Include="Figures\Figure2D.cs" />
     <Compile Include="Helpers\FigureFactory.cs" />

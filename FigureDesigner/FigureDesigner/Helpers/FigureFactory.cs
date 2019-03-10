@@ -1,5 +1,4 @@
 ﻿using FigureDesigner.Figures._1DFigures;
-using FigureDesigner.Figures._2DFigures;
 using FigureDesigner.Figures._2DFigures.SymmetricalFigures;
 using System;
 using System.Collections.Generic;
@@ -93,6 +92,15 @@ namespace FigureDesigner.Helpers
                     break;
                 case FigureType.Square:
                     figure = new Square
+                    {
+                        ControlPoint1 = _startPoint,
+                        ControlPoint2 = _endPoint,
+                        LineColor = _lineColor,
+                        FigureColor = _figureColor
+                    };
+                    break;
+                case FigureType.Triangle:
+                    figure = new Triangle
                     {
                         ControlPoint1 = _startPoint,
                         ControlPoint2 = _endPoint,
