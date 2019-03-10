@@ -82,8 +82,11 @@
     <Compile Include="Figures\1DFigures\Line.cs" />
     <Compile Include="Figures\1DFigures\Ray.cs" />
     <Compile Include="Figures\1DFigures\Segment.cs" />
-    <Compile Include="Figures\2DFigures\Circle.cs" />
-    <Compile Include="Figures\2DFigures\Ellipse.cs" />
+    <Compile Include="Figures\2DFigures\SymmetricalFigures\Circle.cs" />
+    <Compile Include="Figures\2DFigures\SymmetricalFigures\Ellipse.cs" />
+    <Compile Include="Figures\2DFigures\SymmetricalFigures\Rectangle.cs" />
+    <Compile Include="Figures\2DFigures\SymmetricalFigure.cs" />
+    <Compile Include="Figures\2DFigures\SymmetricalFigures\Square.cs" />
     <Compile Include="Figures\Figure1D.cs" />
     <Compile Include="Figures\Figure2D.cs" />
     <Compile Include="Helpers\FigureFactory.cs" />

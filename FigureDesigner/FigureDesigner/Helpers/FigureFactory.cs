@@ -1,5 +1,6 @@
 ﻿using FigureDesigner.Figures._1DFigures;
 using FigureDesigner.Figures._2DFigures;
+using FigureDesigner.Figures._2DFigures.SymmetricalFigures;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -74,6 +75,24 @@ namespace FigureDesigner.Helpers
                     break;
                 case FigureType.Circle:
                     figure = new Circle
+                    {
+                        ControlPoint1 = _startPoint,
+                        ControlPoint2 = _endPoint,
+                        LineColor = _lineColor,
+                        FigureColor = _figureColor
+                    };
+                    break;
+                case FigureType.Rectangle:
+                    figure = new Rectangle
+                    {
+                        ControlPoint1 = _startPoint,
+                        ControlPoint2 = _endPoint,
+                        LineColor = _lineColor,
+                        FigureColor = _figureColor
+                    };
+                    break;
+                case FigureType.Square:
+                    figure = new Square
                     {
                         ControlPoint1 = _startPoint,
                         ControlPoint2 = _endPoint,

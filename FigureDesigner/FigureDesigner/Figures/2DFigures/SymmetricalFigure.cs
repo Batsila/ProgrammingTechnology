@@ -3,13 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Controls;
-using System.Windows.Media;
-using System.Windows.Shapes;
 
 namespace FigureDesigner.Figures._2DFigures
 {
-    public class Ellipse : Figure2D
+    public abstract class SymmetricalFigure : Figure2D
     {
         public Point ControlPoint1 { get; set; }
 
@@ -45,21 +42,6 @@ namespace FigureDesigner.Figures._2DFigures
             {
                 return Math.Min(ControlPoint1.X, ControlPoint2.X);
             }
-        }
-
-        public override void Draw(Canvas canvas)
-        {
-            System.Windows.Shapes.Ellipse ellipse = new System.Windows.Shapes.Ellipse
-            {
-                Fill = new SolidColorBrush(FigureColor),
-                Stroke = new SolidColorBrush(LineColor),
-                Width = Width,
-                Height = Height
-            };
-            Canvas.SetTop(ellipse, Top);
-            Canvas.SetLeft(ellipse, Left);
-
-            canvas.Children.Add(ellipse);
         }
     }
 }
