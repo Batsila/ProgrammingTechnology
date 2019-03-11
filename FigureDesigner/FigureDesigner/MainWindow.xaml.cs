@@ -91,7 +91,7 @@ namespace FigureDesigner
         {
             if (e.Source is Shape)
             {
-                SelectedElement = (Shape)e.Source;
+                SelectedElement = (Shape)e.Source;               
             }
         }
 
@@ -99,9 +99,10 @@ namespace FigureDesigner
         {
             if (SelectedElement != null)
             {
-                Canvas.SetTop(SelectedElement, e.GetPosition(DrawCanvas).Y);
-                Canvas.SetLeft(SelectedElement, e.GetPosition(DrawCanvas).X);
-                SelectedElement = null;
+                Canvas.SetTop(SelectedElement, e.GetPosition(DrawCanvas).Y - SelectedElement.ActualHeight / 2);
+                Canvas.SetLeft(SelectedElement, e.GetPosition(DrawCanvas).X - SelectedElement.ActualWidth / 2);
+
+                SelectedElement = null;                
             }
         }
 
