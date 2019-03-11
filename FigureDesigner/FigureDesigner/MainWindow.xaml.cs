@@ -27,6 +27,7 @@ namespace FigureDesigner
         public Point StartPoint { get; private set; }
         public Point EndPoint { get; private set; }
         public Shape SelectedElement { get; private set;}
+        public Boolean isDragged = false;
 
         public MainWindow()
         {
@@ -87,23 +88,38 @@ namespace FigureDesigner
             EndPoint = null;
         }
 
-        private void SelectElement(object sender, MouseEventArgs e)
+        private void SelectElement(object sender, MouseButtonEventArgs e)
         {
             if (e.Source is Shape)
             {
-                SelectedElement = (Shape)e.Source;               
+                SelectedElement = (Shape)e.Source;
+                StartPoint = new Point
+                {
+                    X = e.GetPosition(DrawCanvas).X,
+                    Y = e.GetPosition(DrawCanvas).Y
+                };
+                isDragged = true;
             }
         }
 
-        private void ReplaceElement(object sender, MouseEventArgs e)
+        private void OnDrag(object sender, MouseEventArgs e)
         {
-            if (SelectedElement != null)
+            if (isDragged)
             {
-                Canvas.SetTop(SelectedElement, e.GetPosition(DrawCanvas).Y - SelectedElement.ActualHeight / 2);
-                Canvas.SetLeft(SelectedElement, e.GetPosition(DrawCanvas).X - SelectedElement.ActualWidth / 2);
-
-                SelectedElement = null;                
+                if (SelectedElement != null)
+                {
+                    Canvas.SetLeft(SelectedElement, e.GetPosition(DrawCanvas).X - SelectedElement.ActualWidth / 2);
+                    Canvas.SetTop(SelectedElement, e.GetPosition(DrawCanvas).Y - SelectedElement.ActualWidth / 2);                                     
+                }
             }
+
+        }
+
+        private void ReplaceElement(object sender, MouseButtonEventArgs e)
+        {
+            isDragged = false;
+            SelectedElement = null;
+            StartPoint = null;
         }
 
         private void ClearCanvas(object sender, RoutedEventArgs e)
