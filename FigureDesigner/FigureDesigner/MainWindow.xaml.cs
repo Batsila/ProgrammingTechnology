@@ -1,17 +1,9 @@
 ﻿using FigureDesigner.Helpers;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace FigureDesigner
@@ -27,7 +19,6 @@ namespace FigureDesigner
         public Point StartPoint { get; private set; }
         public Point EndPoint { get; private set; }
         public Shape SelectedElement { get; private set;}
-        public Boolean isDragged = false;
 
         public MainWindow()
         {
@@ -93,33 +84,21 @@ namespace FigureDesigner
             if (e.Source is Shape)
             {
                 SelectedElement = (Shape)e.Source;
-                StartPoint = new Point
-                {
-                    X = e.GetPosition(DrawCanvas).X,
-                    Y = e.GetPosition(DrawCanvas).Y
-                };
-                isDragged = true;
             }
         }
 
-        private void OnDrag(object sender, MouseEventArgs e)
+        private void DragElement(object sender, MouseEventArgs e)
         {
-            if (isDragged)
+            if (SelectedElement != null)
             {
-                if (SelectedElement != null)
-                {
-                    Canvas.SetLeft(SelectedElement, e.GetPosition(DrawCanvas).X - SelectedElement.ActualWidth / 2);
-                    Canvas.SetTop(SelectedElement, e.GetPosition(DrawCanvas).Y - SelectedElement.ActualWidth / 2);                                     
-                }
+                Canvas.SetLeft(SelectedElement, e.GetPosition(DrawCanvas).X - SelectedElement.ActualWidth / 2);
+                Canvas.SetTop(SelectedElement, e.GetPosition(DrawCanvas).Y - SelectedElement.ActualWidth / 2);
             }
-
         }
 
         private void ReplaceElement(object sender, MouseButtonEventArgs e)
         {
-            isDragged = false;
             SelectedElement = null;
-            StartPoint = null;
         }
 
         private void ClearCanvas(object sender, RoutedEventArgs e)

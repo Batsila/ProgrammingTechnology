@@ -86,7 +86,7 @@
                 MouseLeftButtonDown="SetStartPoint"
                 MouseLeftButtonUp="SetEndPoint"
                 MouseRightButtonDown="SelectElement"
-                MouseMove="OnDrag"
+                MouseMove="DragElement"
                 MouseRightButtonUp="ReplaceElement"/>
     </Grid>
 </Window>
