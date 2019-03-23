@@ -36,7 +36,11 @@ counting salary logic in backend.
 "salaryType": "FIXED", // enum: FIXED or TIME
 "rate": null, // number, hours, that worker should work for, if FIXED - null
 "salary": 100000000, // (if FIXED - per month, if TIME - per hour),
-"bankAccount": "5554GGH63636HDGHDGDG636" // string, field
+"bankAccount": "5554GGH63636HDGHDGDG636", // string, field
+"paymentType": "P1" // let it be P1 and P2 enum, 
+                    // cause I don't give a fuck, 
+                    // what "different payment types" means 
+                    // in automatic accounting system
 }
 ```
 
