@@ -16,8 +16,8 @@ Object, that contains basic info about worker.
 "id": 42, // number, unique for every employee
 "firstName": "Ziggy", // string
 "secondName": "Stardust", // string
-"position" : "Major", // string
-"departmentID": 4, // number
+"role" : "Major", // string
+"departmentId": 4, // number
 "salaryInfo": {}, // SalaryInfo object
 "address": "London, 221B Baker Street", // string
 }

@@ -1,0 +1,422 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>AccountingSystem.Api</name>
+    </assembly>
+    <members>
+        <member name="T:AccountingSystem.API.Controllers.AuthController">
+            <summary>
+            Authentication controller
+            </summary>
+        </member>
+        <member name="M:AccountingSystem.API.Controllers.AuthController.#ctor(System.IServiceProvider,AccountingSystem.API.Entity.AccountingSystemContext)">
+            <summary>
+            Public constructor
+            </summary>
+            <param name="serviceProvider">Service provider</param>
+            <param name="vokaContext">Database context</param>
+        </member>
+        <member name="M:AccountingSystem.API.Controllers.AuthController.GetToken(AccountingSystem.API.Models.AuthRequest)">
+            <summary>
+            Auth method
+            </summary>
+            <param name="user">User to authorize</param>
+            <returns>User info with token</returns>
+        </member>
+        <member name="M:AccountingSystem.API.Controllers.AuthController.RegisterUser(AccountingSystem.API.Models.AuthRequest)">
+            <summary>
+            Register method
+            </summary>
+            <param name="user">User to register</param>
+            <returns>User info with token</returns>
+        </member>
+        <member name="T:AccountingSystem.API.Controllers.EmployeeController">
+            <summary>
+            Models controller
+            </summary>
+        </member>
+        <member name="M:AccountingSystem.API.Controllers.EmployeeController.#ctor(AccountingSystem.API.Managers.EmployeeManager)">
+            <summary>
+            Constructor with injected parameters
+            </summary>
+            <param name="employeeManager"></param>
+        </member>
+        <member name="M:AccountingSystem.API.Controllers.EmployeeController.GetAllEmployees">
+            <summary>
+            Returns all employees
+            </summary>
+            <returns>All employees</returns>
+        </member>
+        <member name="M:AccountingSystem.API.Controllers.EmployeeController.GetEmployee(System.Int32)">
+            <summary>
+            Returns employee by id
+            </summary>
+            <param name="id">Employee id</param>
+            <returns>Employee</returns>
+        </member>
+        <member name="M:AccountingSystem.API.Controllers.EmployeeController.CreateEmployee(AccountingSystem.API.Entity.Employee)">
+            <summary>
+            Creates new employee
+            </summary>
+            <param name="createEmployeeRequest"></param>
+            <returns>Employee</returns>
+        </member>
+        <member name="M:AccountingSystem.API.Controllers.EmployeeController.UpdateEmployee(AccountingSystem.API.Entity.Employee)">
+            <summary>
+            Updates exist employee
+            </summary>
+            <param name="updateEmployeeRequest">Employee to update</param>
+            <returns>Employee</returns>
+        </member>
+        <member name="M:AccountingSystem.API.Controllers.EmployeeController.DeleteEmployee(System.Int32)">
+            <summary>
+            Deletes exist employee
+            </summary>
+            <param name="id">Employee id</param>
+        </member>
+        <member name="T:AccountingSystem.API.Entity.AccountingSystemContext">
+            <summary>
+            Database context for voka
+            </summary>
+        </member>
+        <member name="P:AccountingSystem.API.Entity.AccountingSystemContext.Employees">
+            <summary>
+            Models dbset
+            </summary>
+        </member>
+        <member name="P:AccountingSystem.API.Entity.AccountingSystemContext.Users">
+            <summary>
+            Users dbset
+            </summary>
+        </member>
+        <member name="M:AccountingSystem.API.Entity.AccountingSystemContext.#ctor(Microsoft.EntityFrameworkCore.DbContextOptions)">
+            <summary>
+            Public constructor
+            </summary>
+            <param name="options">Options</param>
+        </member>
+        <member name="M:AccountingSystem.API.Entity.AccountingSystemContext.SaveChanges">
+            <summary>
+            Override save changes method
+            </summary>
+        </member>
+        <member name="M:AccountingSystem.API.Entity.AccountingSystemContext.SaveChangesAsync(System.Threading.CancellationToken)">
+            <summary>
+            Override async save changes method
+            </summary>
+        </member>
+        <member name="M:AccountingSystem.API.Entity.AccountingSystemContext.SaveChanges(System.Boolean)">
+            <summary>
+            Override save changes method
+            </summary>
+        </member>
+        <member name="M:AccountingSystem.API.Entity.AccountingSystemContext.SaveChangesAsync(System.Boolean,System.Threading.CancellationToken)">
+            <summary>
+            Override async save changes method
+            </summary>
+        </member>
+        <member name="M:AccountingSystem.API.Entity.AccountingSystemContext.OnModelCreating(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <summary>
+            Overrided OnModelCreating method
+            </summary>
+            <param name="modelBuilder">ModelBuilder</param>
+        </member>
+        <member name="T:AccountingSystem.API.Entity.Employee">
+            <summary>
+            Employee entity
+            </summary>
+        </member>
+        <member name="P:AccountingSystem.API.Entity.Employee.Id">
+            <summary>
+            Identity number
+            </summary>
+        </member>
+        <member name="P:AccountingSystem.API.Entity.Employee.FirstName">
+            <summary>
+            Employee first name
+            </summary>
+        </member>
+        <member name="P:AccountingSystem.API.Entity.Employee.SecondName">
+            <summary>
+            Employee second name
+            </summary>
+        </member>
+        <member name="P:AccountingSystem.API.Entity.Employee.CreateDate">
+            <summary>
+            Create date
+            </summary>
+        </member>
+        <member name="P:AccountingSystem.API.Entity.Employee.LastUpdateDate">
+            <summary>
+            Last update date
+            </summary>
+        </member>
+        <member name="T:AccountingSystem.API.Entity.EntityTypeConfiguration.EmployeeEntityTypeConfiguration">
+            <summary>
+            Model entity type configuration
+            </summary>
+        </member>
+        <member name="M:AccountingSystem.API.Entity.EntityTypeConfiguration.EmployeeEntityTypeConfiguration.Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder{AccountingSystem.API.Entity.Employee})">
+            <summary>
+            Override cofigure method  
+            </summary>
+            <param name="builder"></param>
+        </member>
+        <member name="T:AccountingSystem.API.Entity.EntityTypeConfiguration.UserEntityTypeConfiguration">
+            <summary>
+            User entity type configuration
+            </summary>
+        </member>
+        <member name="M:AccountingSystem.API.Entity.EntityTypeConfiguration.UserEntityTypeConfiguration.Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder{AccountingSystem.API.Entity.User})">
+            <summary>
+            Override configure method
+            </summary>
+            <param name="builder"></param>
+        </member>
+        <member name="T:AccountingSystem.API.Entity.IEntityUpdateDate">
+            <summary>
+            Update date interface
+            </summary>
+        </member>
+        <member name="P:AccountingSystem.API.Entity.IEntityUpdateDate.CreateDate">
+            <summary>
+            Create date
+            </summary>
+        </member>
+        <member name="P:AccountingSystem.API.Entity.IEntityUpdateDate.LastUpdateDate">
+            <summary>
+            Last update date
+            </summary>
+        </member>
+        <member name="T:AccountingSystem.API.Entity.User">
+            <summary>
+            User entity
+            </summary>
+        </member>
+        <member name="P:AccountingSystem.API.Entity.User.Id">
+            <summary>
+            User's identifier
+            </summary>
+        </member>
+        <member name="P:AccountingSystem.API.Entity.User.Login">
+            <summary>
+            User's login
+            </summary>
+        </member>
+        <member name="P:AccountingSystem.API.Entity.User.Password">
+            <summary>
+            Password
+            </summary>
+        </member>
+        <member name="P:AccountingSystem.API.Entity.User.Role">
+            <summary>
+            User role
+            </summary>
+        </member>
+        <member name="P:AccountingSystem.API.Entity.User.RoleName">
+            <summary>
+            User role name
+            </summary>
+        </member>
+        <member name="P:AccountingSystem.API.Entity.User.CreateDate">
+            <summary>
+            User create date
+            </summary>
+        </member>
+        <member name="P:AccountingSystem.API.Entity.User.LastUpdateDate">
+            <summary>
+            User last update date
+            </summary>
+        </member>
+        <member name="T:AccountingSystem.API.Helpers.Const">
+            <summary>
+            Constants container class
+            </summary>
+        </member>
+        <member name="F:AccountingSystem.API.Helpers.Const.POLICY_CLERK">
+            <summary>
+            Allowed to Clerk, Accountant and Admin
+            </summary>
+        </member>
+        <member name="F:AccountingSystem.API.Helpers.Const.POLICY_ACCOUNTANT">
+            <summary>
+            Allowed to Accountant and Admin
+            </summary>
+        </member>
+        <member name="F:AccountingSystem.API.Helpers.Const.POLICY_ADMIN">
+            <summary>
+            Allowed to Admin
+            </summary>
+        </member>
+        <member name="T:AccountingSystem.API.Helpers.Extentions">
+            <summary>
+            Extentions
+            </summary>
+        </member>
+        <member name="F:AccountingSystem.API.Helpers.Extentions.Key">
+            <summary>
+            RSA key
+            </summary>
+        </member>
+        <member name="M:AccountingSystem.API.Helpers.Extentions.MigrateDatabase(Microsoft.AspNetCore.Hosting.IWebHost)">
+            <summary>
+            Extention for db Migration
+            </summary>
+        </member>
+        <member name="T:AccountingSystem.API.Helpers.UserRoles">
+            <summary>
+            Enum for user status
+            </summary>
+        </member>
+        <member name="F:AccountingSystem.API.Helpers.UserRoles.Default">
+            <summary>
+            Default user
+            </summary>
+        </member>
+        <member name="F:AccountingSystem.API.Helpers.UserRoles.Clerk">
+            <summary>
+            Clerk user
+            </summary>
+        </member>
+        <member name="F:AccountingSystem.API.Helpers.UserRoles.Accountant">
+            <summary>
+            Accountant user
+            </summary>
+        </member>
+        <member name="F:AccountingSystem.API.Helpers.UserRoles.Admin">
+            <summary>
+            Admin user
+            </summary>
+        </member>
+        <member name="T:AccountingSystem.API.Managers.EmployeeManager">
+            <summary>
+            Manager for models
+            </summary>
+        </member>
+        <member name="M:AccountingSystem.API.Managers.EmployeeManager.#ctor(AccountingSystem.API.Entity.AccountingSystemContext)">
+            <summary>
+            Public constructor
+            </summary>
+            <param name="dbContext">Database context</param>
+        </member>
+        <member name="M:AccountingSystem.API.Managers.EmployeeManager.CreateEmployee(AccountingSystem.API.Entity.Employee)">
+            <summary>
+            Creates new employee
+            </summary>
+            <param name="employee">Create employee request</param>
+        </member>
+        <member name="M:AccountingSystem.API.Managers.EmployeeManager.UpdateEmployee(AccountingSystem.API.Entity.Employee)">
+            <summary>
+            Updates exist employee
+            </summary>
+            <param name="employee">Employee to update</param>
+        </member>
+        <member name="M:AccountingSystem.API.Managers.EmployeeManager.DeleteEmployee(System.Int32)">
+            <summary>
+            Deletes employee
+            </summary>
+            <param name="employeeId">Employee id</param>
+        </member>
+        <member name="M:AccountingSystem.API.Managers.EmployeeManager.GetEmployee(System.Int32)">
+            <summary>
+            Returns employee by id
+            </summary>
+            <param name="id">Employee id</param>
+        </member>
+        <member name="M:AccountingSystem.API.Managers.EmployeeManager.GetAllEmployees">
+            <summary>
+            Returns all employees
+            </summary>
+            <returns>All employees</returns>
+        </member>
+        <member name="T:AccountingSystem.API.Managers.Exceptions.IncorrectDataException">
+            <summary>
+            Custom incorrect data exception
+            </summary>
+        </member>
+        <member name="T:AccountingSystem.API.Managers.Exceptions.NotFoundException">
+            <summary>
+            Custom not found exception
+            </summary>
+        </member>
+        <member name="T:AccountingSystem.API.Models.AuthRequest">
+            <summary>
+            User authentication request
+            </summary>
+        </member>
+        <member name="P:AccountingSystem.API.Models.AuthRequest.Login">
+            <summary>
+            Login
+            </summary>
+        </member>
+        <member name="P:AccountingSystem.API.Models.AuthRequest.Pass">
+            <summary>
+            Password
+            </summary>
+        </member>
+        <member name="T:AccountingSystem.API.Models.AuthResponse">
+            <summary>
+            Authenticated user
+            </summary>
+        </member>
+        <member name="P:AccountingSystem.API.Models.AuthResponse.Token">
+            <summary>
+            User's security token
+            </summary>
+        </member>
+        <member name="P:AccountingSystem.API.Models.AuthResponse.Id">
+            <summary>
+            User's identificational number
+            </summary>
+        </member>
+        <member name="P:AccountingSystem.API.Models.AuthResponse.Login">
+            <summary>
+            User login
+            </summary>
+        </member>
+        <member name="P:AccountingSystem.API.Models.AuthResponse.Status">
+            <summary>
+            User status
+            </summary>
+        </member>
+        <member name="T:AccountingSystem.API.Program">
+            <summary>
+            Main class
+            </summary>
+        </member>
+        <member name="M:AccountingSystem.API.Program.Main(System.String[])">
+            <summary>
+            Entry point
+            </summary>
+        </member>
+        <member name="M:AccountingSystem.API.Program.BuildWebHost(System.String[])">
+            <summary>
+            Build web host
+            </summary>
+        </member>
+        <member name="T:AccountingSystem.API.Startup">
+            <summary>
+            Application sturtup class
+            </summary>
+        </member>
+        <member name="M:AccountingSystem.API.Startup.#ctor(Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Default constructor method
+            </summary>
+            <param name="configuration">Application configuration</param>
+        </member>
+        <member name="M:AccountingSystem.API.Startup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Application services configuration method
+            </summary>
+            <param name="services">Collection of services</param>
+        </member>
+        <member name="M:AccountingSystem.API.Startup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Hosting.IHostingEnvironment)">
+            <summary>
+            Application configuration method
+            </summary>
+            <param name="app">Application builder</param>
+            <param name="env">Hosting environment</param>
+        </member>
+    </members>
+</doc>
