@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using AccountingSystem.API.Entity;
-using AccountingSystem.API.Helpers;
-using AccountingSystem.API.Managers.Exceptions;
-using AccountingSystem.API.Models;
+using AccountingSystem.Api.Entity;
+using AccountingSystem.Api.Helpers;
+using AccountingSystem.Api.Managers.Exceptions;
+using AccountingSystem.Api.Models;
 
-namespace AccountingSystem.API.Managers
+namespace AccountingSystem.Api.Managers
 {
     /// <summary>
-    /// Manager for models
+    /// Manager for employees
     /// </summary>
     public class EmployeeManager
     {
@@ -107,16 +107,16 @@ namespace AccountingSystem.API.Managers
         /// <param name="employeeId">Employee id</param>
         public void DeleteEmployee(int employeeId)
         {
-            var dbModel = _dbContext.Employees.FirstOrDefault(m => m.Id == employeeId);
+            var dbEmploye = _dbContext.Employees.FirstOrDefault(m => m.Id == employeeId);
 
-            if (dbModel == null)
+            if (dbEmploye == null)
                 throw new NotFoundException($"Employee with id '{employeeId}' not exist");
 
             using (var txn = _dbContext.Database.BeginTransaction())
             {
                 try
                 {
-                    _dbContext.Employees.Remove(dbModel);
+                    _dbContext.Employees.Remove(dbEmploye);
                     _dbContext.SaveChanges();
 
                     txn.Commit();

@@ -4,9 +4,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using AccountingSystem.API.Helpers;
+using AccountingSystem.Api.Helpers;
 
-namespace AccountingSystem.API.Entity.EntityTypeConfiguration
+namespace AccountingSystem.Api.Entity.EntityTypeConfiguration
 {
     /// <summary>
     /// User entity type configuration

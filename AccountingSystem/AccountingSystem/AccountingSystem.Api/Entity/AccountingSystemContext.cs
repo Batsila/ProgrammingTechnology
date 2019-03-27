@@ -5,9 +5,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using AccountingSystem.API.Entity.EntityTypeConfiguration;
+using AccountingSystem.Api.Entity.EntityTypeConfiguration;
 
-namespace AccountingSystem.API.Entity
+namespace AccountingSystem.Api.Entity
 {
     /// <summary>
     /// Database context for voka
@@ -15,13 +15,25 @@ namespace AccountingSystem.API.Entity
     public class AccountingSystemContext : DbContext
     {
         /// <summary>
+        /// Users dbset
+        /// </summary>
+        public DbSet<User> Users { get; set; }
+        /// <summary>
         /// Models dbset
         /// </summary>
         public DbSet<Employee> Employees { get; set; }
         /// <summary>
-        /// Users dbset
+        /// Departments dbset
         /// </summary>
-        public DbSet<User> Users { get; set; }
+        public DbSet<Department> Departments{ get; set; }
+        /// <summary>
+        /// Salaries dbset
+        /// </summary>
+        public DbSet<SalaryInfo> Salaries { get; set; }
+        /// <summary>
+        /// TimeCards dbset
+        /// </summary>
+        public DbSet<TimeCard> TimeCards { get; set; }
 
         /// <summary>
         /// Public constructor
@@ -89,7 +101,11 @@ namespace AccountingSystem.API.Entity
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+            modelBuilder.ApplyConfiguration(new UserEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new EmployeeEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new SalaryInfoEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new DepartmentEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new TimeCardEntityTypeConfiguration());
         }
     }
 }

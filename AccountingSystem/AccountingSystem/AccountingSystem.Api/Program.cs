@@ -7,9 +7,9 @@ using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using AccountingSystem.API.Helpers;
+using AccountingSystem.Api.Helpers;
 
-namespace AccountingSystem.API
+namespace AccountingSystem.Api
 {
     /// <summary>
     /// Main class

@@ -5,17 +5,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace AccountingSystem.API.Entity.EntityTypeConfiguration
+namespace AccountingSystem.Api.Entity.EntityTypeConfiguration
 {
     /// <summary>
-    /// Model entity type configuration
+    /// Employee entity type configuration
     /// </summary>
     public class EmployeeEntityTypeConfiguration : IEntityTypeConfiguration<Employee>
     {
         /// <summary>
         /// Override cofigure method  
         /// </summary>
-        /// <param name="builder"></param>
         public void Configure(EntityTypeBuilder<Employee> builder)
         {
             builder.ToTable("Employees", "dbo");
@@ -27,6 +26,19 @@ namespace AccountingSystem.API.Entity.EntityTypeConfiguration
             builder.Property(m => m.FirstName).IsRequired();
 
             builder.Property(m => m.SecondName);
+
+            builder.HasOne<SalaryInfo>(m => m.SalaryInfo)
+                .WithOne(s => s.Employee)
+                .HasForeignKey<SalaryInfo>(k => k.EmployeeId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            builder.HasOne(b => b.Department)
+                .WithMany(r => r.Employees)
+                .HasForeignKey(k => k.DepartmentId);
+
+            builder.HasMany<TimeCard>(m => m.TimeCards)
+                .WithOne(s => s.Employee)
+                .HasForeignKey(k => k.EmployeeId);
         }
     }
 }

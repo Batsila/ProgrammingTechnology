@@ -4,15 +4,15 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using AccountingSystem.API.Helpers;
-using AccountingSystem.API.Managers;
-using AccountingSystem.API.Models;
-using AccountingSystem.API.Entity;
+using AccountingSystem.Api.Helpers;
+using AccountingSystem.Api.Managers;
+using AccountingSystem.Api.Models;
+using AccountingSystem.Api.Entity;
 
-namespace AccountingSystem.API.Controllers
+namespace AccountingSystem.Api.Controllers
 {
     /// <summary>
-    /// Models controller
+    /// Employees controller
     /// </summary>
     [Route("api/employee/")]
     [ApiController]
@@ -37,8 +37,8 @@ namespace AccountingSystem.API.Controllers
         [Authorize(Policy = Const.POLICY_CLERK)]
         public ActionResult<IEnumerable<Employee>> GetAllEmployees()
         {
-            var models = _EmployeeManager.GetAllEmployees();
-            return Ok(models);
+            var employees = _EmployeeManager.GetAllEmployees();
+            return Ok(employees);
         }
 
         /// <summary>

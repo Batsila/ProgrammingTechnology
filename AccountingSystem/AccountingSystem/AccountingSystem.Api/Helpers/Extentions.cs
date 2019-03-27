@@ -6,10 +6,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using AccountingSystem.API.Entity;
-using AccountingSystem.API.Models;
+using AccountingSystem.Api.Entity;
+using AccountingSystem.Api.Models;
 
-namespace AccountingSystem.API.Helpers
+namespace AccountingSystem.Api.Helpers
 {
     /// <summary>
     /// Extentions

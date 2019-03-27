@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace AccountingSystem.API
+namespace AccountingSystem.Api
 {
     public class TokenAuthOptions
     {

@@ -13,21 +13,21 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System.IO;
 using System.Reflection;
-using AccountingSystem.API.Entity;
+using AccountingSystem.Api.Entity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-using AccountingSystem.API.Helpers;
+using AccountingSystem.Api.Helpers;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
-using AccountingSystem.API.Managers;
+using AccountingSystem.Api.Managers;
 using System.Net;
 using Microsoft.AspNetCore.Diagnostics;
-using AccountingSystem.API.Managers.Exceptions;
+using AccountingSystem.Api.Managers.Exceptions;
 
-namespace AccountingSystem.API
+namespace AccountingSystem.Api
 {
     /// <summary>
     /// Application sturtup class

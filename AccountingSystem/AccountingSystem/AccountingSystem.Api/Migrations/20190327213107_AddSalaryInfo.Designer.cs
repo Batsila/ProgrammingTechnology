@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AccountingSystem.Api.Migrations
 {
     [DbContext(typeof(AccountingSystemContext))]
-    [Migration("20190325231032_Init")]
-    partial class Init
+    [Migration("20190327213107_AddSalaryInfo")]
+    partial class AddSalaryInfo
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -21,11 +21,13 @@ namespace AccountingSystem.Api.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("AccountingSystem.API.Entity.Employee", b =>
+            modelBuilder.Entity("AccountingSystem.Api.Entity.Employee", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Address");
 
                     b.Property<DateTime>("CreateDate");
 
@@ -34,6 +36,8 @@ namespace AccountingSystem.Api.Migrations
 
                     b.Property<DateTime>("LastUpdateDate");
 
+                    b.Property<int>("SalaryInfoId");
+
                     b.Property<string>("SecondName");
 
                     b.HasKey("Id");
@@ -41,7 +45,33 @@ namespace AccountingSystem.Api.Migrations
                     b.ToTable("Employees","dbo");
                 });
 
-            modelBuilder.Entity("AccountingSystem.API.Entity.User", b =>
+            modelBuilder.Entity("AccountingSystem.Api.Entity.SalaryInfo", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("BankAccount");
+
+                    b.Property<int>("EmployeeId");
+
+                    b.Property<int>("PaymentType");
+
+                    b.Property<double>("Rate");
+
+                    b.Property<double>("Salary");
+
+                    b.Property<int>("Type");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EmployeeId")
+                        .IsUnique();
+
+                    b.ToTable("SalaryInfo");
+                });
+
+            modelBuilder.Entity("AccountingSystem.Api.Entity.User", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
@@ -59,6 +89,14 @@ namespace AccountingSystem.Api.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("AccountingSystem.Api.Entity.SalaryInfo", b =>
+                {
+                    b.HasOne("AccountingSystem.Api.Entity.Employee", "Employee")
+                        .WithOne("SalaryInfo")
+                        .HasForeignKey("AccountingSystem.Api.Entity.SalaryInfo", "EmployeeId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

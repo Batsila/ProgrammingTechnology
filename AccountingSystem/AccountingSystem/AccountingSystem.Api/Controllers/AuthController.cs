@@ -12,11 +12,11 @@ using System.Security.Claims;
 using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
-using AccountingSystem.API.Entity;
-using AccountingSystem.API.Helpers;
-using AccountingSystem.API.Models;
+using AccountingSystem.Api.Entity;
+using AccountingSystem.Api.Helpers;
+using AccountingSystem.Api.Models;
 
-namespace AccountingSystem.API.Controllers
+namespace AccountingSystem.Api.Controllers
 {
     /// <summary>
     /// Authentication controller

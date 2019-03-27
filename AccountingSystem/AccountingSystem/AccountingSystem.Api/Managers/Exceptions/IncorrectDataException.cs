@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace AccountingSystem.API.Managers.Exceptions
+namespace AccountingSystem.Api.Managers.Exceptions
 {
     /// <summary>
     /// Custom incorrect data exception

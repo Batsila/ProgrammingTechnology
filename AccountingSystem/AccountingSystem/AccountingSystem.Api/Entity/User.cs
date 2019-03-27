@@ -1,10 +1,10 @@
-﻿using AccountingSystem.API.Helpers;
+﻿using AccountingSystem.Api.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace AccountingSystem.API.Entity
+namespace AccountingSystem.Api.Entity
 {
     /// <summary>
     /// User entity

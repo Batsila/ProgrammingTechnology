@@ -4,14 +4,16 @@ using AccountingSystem.Api.Entity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AccountingSystem.Api.Migrations
 {
     [DbContext(typeof(AccountingSystemContext))]
-    partial class AccountingSystemContextModelSnapshot : ModelSnapshot
+    [Migration("20190327214655_AddDepartment")]
+    partial class AddDepartment
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -25,12 +27,11 @@ namespace AccountingSystem.Api.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Name")
-                        .IsRequired();
+                    b.Property<string>("Name");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Departments","dbo");
+                    b.ToTable("Department");
                 });
 
             modelBuilder.Entity("AccountingSystem.Api.Entity.Employee", b =>
@@ -84,30 +85,7 @@ namespace AccountingSystem.Api.Migrations
                     b.HasIndex("EmployeeId")
                         .IsUnique();
 
-                    b.ToTable("Salaries","dbo");
-                });
-
-            modelBuilder.Entity("AccountingSystem.Api.Entity.TimeCard", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Comment");
-
-                    b.Property<DateTime>("CreateDate");
-
-                    b.Property<int>("EmployeeId");
-
-                    b.Property<DateTime>("LastUpdateDate");
-
-                    b.Property<double>("Time");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("EmployeeId");
-
-                    b.ToTable("TimeCard");
+                    b.ToTable("SalaryInfo");
                 });
 
             modelBuilder.Entity("AccountingSystem.Api.Entity.User", b =>
@@ -143,14 +121,6 @@ namespace AccountingSystem.Api.Migrations
                     b.HasOne("AccountingSystem.Api.Entity.Employee", "Employee")
                         .WithOne("SalaryInfo")
                         .HasForeignKey("AccountingSystem.Api.Entity.SalaryInfo", "EmployeeId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("AccountingSystem.Api.Entity.TimeCard", b =>
-                {
-                    b.HasOne("AccountingSystem.Api.Entity.Employee", "Employee")
-                        .WithMany("TimeCards")
-                        .HasForeignKey("EmployeeId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
