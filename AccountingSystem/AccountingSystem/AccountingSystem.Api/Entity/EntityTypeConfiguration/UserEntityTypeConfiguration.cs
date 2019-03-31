@@ -23,7 +23,7 @@ namespace AccountingSystem.Api.Entity.EntityTypeConfiguration
             builder.HasKey(x => x.Id);
 
             builder.Property(b => b.Id).IsRequired();
-            builder.Property(b => b.Login).HasMaxLength(50).IsRequired();
+            builder.Property(b => b.Login).HasMaxLength(50).IsRequired().HasAnnotation("IsUnique", true);
             builder.Property(b => b.Password).IsRequired();
             builder.Property(b => b.Role).HasDefaultValue((int)UserRoles.Default);
         }
