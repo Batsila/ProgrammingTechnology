@@ -43,6 +43,16 @@ namespace AccountingSystem.Api.Entity
         }
 
         /// <summary>
+        /// User department id
+        /// </summary>
+        public int DepartmentId { get; set; }
+
+        /// <summary>
+        /// User department
+        /// </summary>
+        public Department Department { get; set; }
+
+        /// <summary>
         /// User create date
         /// </summary>
         public DateTime CreateDate { get; set; }

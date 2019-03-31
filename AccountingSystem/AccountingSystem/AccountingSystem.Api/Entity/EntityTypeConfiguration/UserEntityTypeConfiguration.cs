@@ -26,6 +26,9 @@ namespace AccountingSystem.Api.Entity.EntityTypeConfiguration
             builder.Property(b => b.Login).HasMaxLength(50).IsRequired().HasAnnotation("IsUnique", true);
             builder.Property(b => b.Password).IsRequired();
             builder.Property(b => b.Role).HasDefaultValue((int)UserRoles.Default);
+            builder.HasOne(b => b.Department)
+                .WithMany(r => r.Users)
+                .HasForeignKey(k => k.DepartmentId);
         }
     }
 }

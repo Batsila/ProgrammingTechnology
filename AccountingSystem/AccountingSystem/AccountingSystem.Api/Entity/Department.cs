@@ -24,5 +24,10 @@ namespace AccountingSystem.Api.Entity
         /// Employees of this department
         /// </summary>
         public ICollection<Employee> Employees { get; set; }
+
+        /// <summary>
+        /// Users of this department
+        /// </summary>
+        public ICollection<User> Users { get; set; }
     }
 }

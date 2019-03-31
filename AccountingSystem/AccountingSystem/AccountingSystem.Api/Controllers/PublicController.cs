@@ -24,7 +24,7 @@ namespace AccountingSystem.Api.Controllers
     [AllowAnonymous]
     [Route("api/")]
     [EnableCors("AllowSpecificOrigin")]
-    public class AuthController : ControllerBase
+    public class PublicController : ControllerBase
     {
         private readonly IServiceProvider _serviceProvider;
         private readonly AccountingSystemContext _dbContext;
@@ -34,7 +34,7 @@ namespace AccountingSystem.Api.Controllers
         /// </summary>
         /// <param name="serviceProvider">Service provider</param>
         /// <param name="vokaContext">Database context</param>
-        public AuthController(IServiceProvider serviceProvider, AccountingSystemContext vokaContext)
+        public PublicController(IServiceProvider serviceProvider, AccountingSystemContext vokaContext)
         {
             _serviceProvider = serviceProvider;
             _dbContext = vokaContext;
@@ -106,6 +106,7 @@ namespace AccountingSystem.Api.Controllers
         /// <returns>User info with token</returns>
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(AuthResponse), (int)HttpStatusCode.Created)]
+        [ApiExplorerSettings(IgnoreApi = true)]
         [HttpPost("register")]
         public IActionResult RegisterUser([FromBody]AuthRequest user)
         {
@@ -137,5 +138,42 @@ namespace AccountingSystem.Api.Controllers
             var authResult = GetToken(new AuthRequest { Login = user.Login, Pass = user.Pass });
             return Created($"user/{dbUser.Id.ToString()}", ((Microsoft.AspNetCore.Mvc.OkObjectResult)authResult).Value);
         }
+
+        /// <summary>
+        /// Returns all roles available in system
+        /// </summary>
+        /// <returns>A list of roles</returns>
+        [HttpGet("roles")]
+        [ProducesResponseType(typeof(IEnumerable<WebEnumItem>), (int)HttpStatusCode.OK)]
+        public IActionResult GetAllRoles()
+        {
+            var roles = typeof(UserRoles).GetAllEnumFields();
+            return Ok(roles);
+        }
+
+        /// <summary>
+        /// Returns all payment types available in system
+        /// </summary>
+        /// <returns>A list of payment types</returns>
+        [HttpGet("paymentTypes")]
+        [ProducesResponseType(typeof(IEnumerable<WebEnumItem>), (int)HttpStatusCode.OK)]
+        public IActionResult GetAllPaymentTypes()
+        {
+            var paymentTypes = typeof(PaymentType).GetAllEnumFields();
+            return Ok(paymentTypes);
+        }
+
+        /// <summary>
+        /// Returns all salary types available in system
+        /// </summary>
+        /// <returns>A list of salary types</returns>
+        [HttpGet("salaryTypes")]
+        [ProducesResponseType(typeof(IEnumerable<WebEnumItem>), (int)HttpStatusCode.OK)]
+        public IActionResult GetAllSalaryTypes()
+        {
+            var salaryTypes = typeof(SalaryType).GetAllEnumFields();
+            return Ok(salaryTypes);
+        }
+
     }
 }

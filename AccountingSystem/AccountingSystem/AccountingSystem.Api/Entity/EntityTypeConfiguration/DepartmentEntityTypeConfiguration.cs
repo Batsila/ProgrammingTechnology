@@ -28,6 +28,10 @@ namespace AccountingSystem.Api.Entity.EntityTypeConfiguration
             builder.HasMany<Employee>(m => m.Employees)
                 .WithOne(s => s.Department)
                 .HasForeignKey(k => k.DepartmentId);
+
+            builder.HasMany(m => m.Users)
+                .WithOne(s => s.Department)
+                .HasForeignKey(k => k.DepartmentId);
         }
     }
 }

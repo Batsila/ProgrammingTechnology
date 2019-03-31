@@ -45,6 +45,40 @@ namespace AccountingSystem.Api.Helpers
 
             return webHost;
         }
+        
+        /// <summary>
+        /// Coverts User to WebUser
+        /// </summary>
+        public static WebUser UserToWebUser(this User user)
+        {
+            var webUser = new WebUser
+            {
+                Login = user.Login,
+                Id = user.Id.ToString(),
+                Role = user.RoleName,
+                CreateDate = user.CreateDate,
+                LastUpdateDate = user.LastUpdateDate
+            };
+            return webUser;
+        }
+
+        /// <summary>
+        /// Returns all enum fields
+        /// </summary>
+        public static IEnumerable<WebEnumItem> GetAllEnumFields(this Type type)
+        {
+            List<WebEnumItem> ret = new List<WebEnumItem>();
+            foreach (var role in Enum.GetValues(type))
+            {
+                WebEnumItem temp = new WebEnumItem()
+                {
+                    Id = (int)role,
+                    Name = role.ToString()
+                };
+                ret.Add(temp);
+            }
+            return ret;
+        }
 
     }
 }
