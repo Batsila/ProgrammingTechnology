@@ -10,6 +10,7 @@ using AccountingSystem.Api.Models.Requests;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace AccountingSystem.Api.Controllers
 {
@@ -38,10 +39,10 @@ namespace AccountingSystem.Api.Controllers
         /// Create user
         /// </summary>
         /// <param name="createUserRequest">User to create</param>
-        /// <returns>User info with token</returns>
+        /// <returns>User model</returns>
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]
-        [ProducesResponseType(typeof(WebUser), (int)HttpStatusCode.Created)]
-        [HttpPost("create")]
+        [ProducesResponseType(typeof(WebUser), (int)HttpStatusCode.OK)]
+        [HttpPost]
         [Authorize(Policy = Const.POLICY_ADMIN)]
         public IActionResult CreaterUser([FromBody]CreateUserRequest createUserRequest)
         {
@@ -57,6 +58,11 @@ namespace AccountingSystem.Api.Controllers
             if (userRole != UserRoles.Admin && department == null)
             {
                 return BadRequest($"Dpartment {createUserRequest.DepartmentId} does not exist");
+            }
+
+            if (_dbContext.Users.Any(u => u.Login == createUserRequest.Login))
+            {
+                return BadRequest($"Login {createUserRequest.Login} is not unique");
             }
 
             var dbUser = new User
@@ -84,6 +90,165 @@ namespace AccountingSystem.Api.Controllers
             }
 
             return Ok(dbUser.UserToWebUser());
+        }
+
+        /// <summary>
+        /// Update user
+        /// </summary>
+        /// <param name="updateUserRequest">User to update</param>
+        /// <returns>User info with token</returns>
+        [ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(typeof(WebUser), (int)HttpStatusCode.OK)]
+        [HttpPatch]
+        [Authorize(Policy = Const.POLICY_ADMIN)]
+        public IActionResult UpdateUser([FromBody]UpdateUserRequest updateUserRequest)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            if (!Guid.TryParse(updateUserRequest.Id, out Guid userId))
+            {
+                return BadRequest($"Id {updateUserRequest.Id} is invalid");
+            }
+
+            var dbUser = _dbContext.Users.FirstOrDefault(u => u.Id == userId);
+
+            if (dbUser == null)
+            {
+                return BadRequest($"User {updateUserRequest.Id} does not exist");
+            }
+
+            if (!string.IsNullOrEmpty(updateUserRequest.Role))
+            {
+                if (!Enum.TryParse(updateUserRequest.Role, out UserRoles userRole))
+                {
+                    return BadRequest($"Role {updateUserRequest.Role} does not exist");
+                }
+                else
+                {
+                    dbUser.Role = (int)userRole;
+                }
+            }
+
+            if (updateUserRequest.DepartmentId > 0)
+            {
+                var department = _dbContext.Departments.First(x => x.Id == updateUserRequest.DepartmentId);
+                if (department == null)
+                {
+                    return BadRequest($"Dpartment {updateUserRequest.DepartmentId} does not exist");
+                }
+            }
+
+            if (!string.IsNullOrEmpty(updateUserRequest.Login))
+            {
+                if (_dbContext.Users.Any(u => u.Login == updateUserRequest.Login))
+                {
+                    return BadRequest($"Login {updateUserRequest.Login} is not unique");
+                }
+                dbUser.Login = updateUserRequest.Login;
+            }
+
+            if (!string.IsNullOrEmpty(updateUserRequest.Pass))
+            {
+                dbUser.Password = updateUserRequest.Pass;
+            }
+
+            using (var txn = _dbContext.Database.BeginTransaction())
+            {
+                try
+                {
+                    _dbContext.Users.Update(dbUser);
+                    _dbContext.SaveChanges();
+
+                    txn.Commit();
+                }
+                catch
+                {
+                    txn.Rollback();
+                    throw;
+                }
+            }
+
+            return Ok(dbUser.UserToWebUser());
+        }
+
+        /// <summary>
+        /// Delete user
+        /// </summary>
+        /// <param name="id">User id</param>
+        [ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(typeof(string), (int)HttpStatusCode.OK)]
+        [HttpDelete("{id}")]
+        [Authorize(Policy = Const.POLICY_ADMIN)]
+        public IActionResult DeleteUser(string id)
+        {
+            if (!Guid.TryParse(id, out Guid userId))
+            {
+                return BadRequest($"Id {id} is invalid");
+            }
+
+            var dbUser = _dbContext.Users.FirstOrDefault(u => u.Id == userId);
+
+            if (dbUser == null)
+            {
+                return BadRequest($"User {id} does not exist");
+            }
+
+            using (var txn = _dbContext.Database.BeginTransaction())
+            {
+                try
+                {
+                    _dbContext.Users.Remove(dbUser);
+                    _dbContext.SaveChanges();
+
+                    txn.Commit();
+                }
+                catch
+                {
+                    txn.Rollback();
+                    throw;
+                }
+            }
+
+            return Ok();
+        }
+
+        /// <summary>
+        /// Get user
+        /// </summary>
+        /// <param name="id">User id</param>
+        [ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(typeof(WebUser), (int)HttpStatusCode.OK)]
+        [HttpGet("{id}")]
+        [Authorize(Policy = Const.POLICY_ADMIN)]
+        public IActionResult GetUser(string id)
+        {
+            if (!Guid.TryParse(id, out Guid userId))
+            {
+                return BadRequest($"Id {id} is invalid");
+            }
+
+            var dbUser = _dbContext.Users.Include(u => u.Department).FirstOrDefault(u => u.Id == userId);
+
+            if (dbUser == null)
+            {
+                return BadRequest($"User {id} does not exist");
+            }
+
+            return Ok(dbUser.UserToWebUser());
+        }
+
+        /// <summary>
+        /// Get all users
+        /// </summary>
+        [ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(typeof(IEnumerable<WebUser>), (int)HttpStatusCode.OK)]
+        [HttpGet("all")]
+        [Authorize(Policy = Const.POLICY_ADMIN)]
+        public IActionResult GetAllUsers()
+        {
+            var users = _dbContext.Users.Include(u => u.Department).Select(u => u.UserToWebUser());
+            return Ok(users);
         }
     }
 }

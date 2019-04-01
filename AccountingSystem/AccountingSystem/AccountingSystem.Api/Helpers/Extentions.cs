@@ -58,7 +58,7 @@ namespace AccountingSystem.Api.Helpers
                 Role = user.RoleName,
                 CreateDate = user.CreateDate,
                 LastUpdateDate = user.LastUpdateDate,
-                Department = user?.Department.DepartmentToWebDepartment()
+                Department = user.Department?.DepartmentToWebDepartment()
             };
             return webUser;
         }
