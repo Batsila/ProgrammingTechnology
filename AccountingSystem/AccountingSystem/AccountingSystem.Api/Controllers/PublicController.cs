@@ -15,6 +15,7 @@ using System.Threading.Tasks;
 using AccountingSystem.Api.Entity;
 using AccountingSystem.Api.Helpers;
 using AccountingSystem.Api.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace AccountingSystem.Api.Controllers
 {
@@ -54,11 +55,14 @@ namespace AccountingSystem.Api.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var dbUser = _dbContext.Users.SingleOrDefault(u => u.Login == user.Login);
+            var dbUser = _dbContext
+                .Users
+                .Include(m => m.Department)
+                .FirstOrDefault(u => u.Login == user.Login);
+
             if (dbUser == null)
                 return NotFound($"User <{user.Login}> not found!");
 
-            // Maybe use hasher
             if (dbUser.Password != user.Pass)
                 return BadRequest($"User and Password do not match");
 
@@ -117,7 +121,8 @@ namespace AccountingSystem.Api.Controllers
             var dbUser = new User
             {
                 Login = user.Login,
-                Password = user.Pass,//Maybe use hasher
+                Password = user.Pass,
+                DepartmentId = Const.DEFAULT_DEPARTMENT_ID
             };
 
             using (var txn = _dbContext.Database.BeginTransaction())
