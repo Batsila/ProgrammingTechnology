@@ -57,9 +57,23 @@ namespace AccountingSystem.Api.Helpers
                 Id = user.Id.ToString(),
                 Role = user.RoleName,
                 CreateDate = user.CreateDate,
-                LastUpdateDate = user.LastUpdateDate
+                LastUpdateDate = user.LastUpdateDate,
+                Department = user?.Department.DepartmentToWebDepartment()
             };
             return webUser;
+        }
+
+        /// <summary>
+        /// Coverts User to WebUser
+        /// </summary>
+        public static WebDepartment DepartmentToWebDepartment(this Department department)
+        {
+            var webDepatment = new WebDepartment
+            {
+                Id = department.Id,
+                Name = department.Name
+            };
+            return webDepatment;
         }
 
         /// <summary>

@@ -37,6 +37,9 @@ namespace AccountingSystem.Api.Models
         /// </summary>
         public DateTime LastUpdateDate { get; set; }
 
-        //TODO: add webdepartment
+        /// <summary>
+        /// User deparment
+        /// </summary>
+        public WebDepartment Department { get; set; }
     }
 }

@@ -28,6 +28,11 @@ namespace AccountingSystem.Api.Models
         /// <summary>
         /// User status
         /// </summary>
-        public string Status { get; set; }
+        public string Role { get; set; }
+
+        /// <summary>
+        /// User department
+        /// </summary>
+        public WebDepartment Department { get; set; }
     }
 }

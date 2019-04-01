@@ -93,7 +93,8 @@ namespace AccountingSystem.Api.Controllers
                     Token = tokenResult,
                     Id = dbUser.Id.ToString(),
                     Login = dbUser.Login,
-                    Status = dbUser.RoleName
+                    Role = dbUser.RoleName,
+                    Department = dbUser.Department?.DepartmentToWebDepartment()
                 });
             }
             throw new Exception("TokenAuthOptions is null.");
