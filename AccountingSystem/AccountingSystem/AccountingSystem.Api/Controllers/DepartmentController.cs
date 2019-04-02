@@ -104,6 +104,11 @@ namespace AccountingSystem.Api.Controllers
                 return BadRequest($"Department {updateDepartmentRequest.Id} does not exist");
             }
 
+            if (_dbContext.Departments.Any(u => u.Name == updateDepartmentRequest.Name))
+            {
+                return BadRequest($"Name {updateDepartmentRequest.Name} is not unique");
+            }
+
             if (!string.IsNullOrEmpty(updateDepartmentRequest.Name))
             {
                 dbDepartment.Name = updateDepartmentRequest.Name;
