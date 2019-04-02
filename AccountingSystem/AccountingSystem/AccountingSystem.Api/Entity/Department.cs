@@ -8,7 +8,7 @@ namespace AccountingSystem.Api.Entity
     /// <summary>
     /// Entity for department
     /// </summary>
-    public class Department
+    public class Department : IEntityUpdateDate
     {
         /// <summary>
         /// Department id
@@ -24,5 +24,20 @@ namespace AccountingSystem.Api.Entity
         /// Employees of this department
         /// </summary>
         public ICollection<Employee> Employees { get; set; }
+
+        /// <summary>
+        /// Users of this department
+        /// </summary>
+        public ICollection<User> Users { get; set; }
+
+        /// <summary>
+        /// Department create date
+        /// </summary>
+        public DateTime CreateDate { get; set; }
+
+        /// <summary>
+        /// Department last update date
+        /// </summary>
+        public DateTime LastUpdateDate { get; set; }
     }
 }

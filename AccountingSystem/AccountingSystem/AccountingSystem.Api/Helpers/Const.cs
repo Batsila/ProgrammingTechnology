@@ -22,5 +22,9 @@ namespace AccountingSystem.Api.Helpers
         /// Allowed to Admin
         /// </summary>
         public const string POLICY_ADMIN = "Admin";
+        /// <summary>
+        /// Default department id
+        /// </summary>
+        public const int DEFAULT_DEPARTMENT_ID = 1;
     }
 }

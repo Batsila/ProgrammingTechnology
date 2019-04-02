@@ -4,32 +4,6 @@
         <name>AccountingSystem.Api</name>
     </assembly>
     <members>
-        <member name="T:AccountingSystem.Api.Controllers.AuthController">
-            <summary>
-            Authentication controller
-            </summary>
-        </member>
-        <member name="M:AccountingSystem.Api.Controllers.AuthController.#ctor(System.IServiceProvider,AccountingSystem.Api.Entity.AccountingSystemContext)">
-            <summary>
-            Public constructor
-            </summary>
-            <param name="serviceProvider">Service provider</param>
-            <param name="vokaContext">Database context</param>
-        </member>
-        <member name="M:AccountingSystem.Api.Controllers.AuthController.GetToken(AccountingSystem.Api.Models.AuthRequest)">
-            <summary>
-            Auth method
-            </summary>
-            <param name="user">User to authorize</param>
-            <returns>User info with token</returns>
-        </member>
-        <member name="M:AccountingSystem.Api.Controllers.AuthController.RegisterUser(AccountingSystem.Api.Models.AuthRequest)">
-            <summary>
-            Register method
-            </summary>
-            <param name="user">User to register</param>
-            <returns>User info with token</returns>
-        </member>
         <member name="T:AccountingSystem.Api.Controllers.EmployeeController">
             <summary>
             Employees controller
@@ -73,6 +47,69 @@
             Deletes exist employee
             </summary>
             <param name="id">Employee id</param>
+        </member>
+        <member name="T:AccountingSystem.Api.Controllers.PublicController">
+            <summary>
+            Authentication controller
+            </summary>
+        </member>
+        <member name="M:AccountingSystem.Api.Controllers.PublicController.#ctor(System.IServiceProvider,AccountingSystem.Api.Entity.AccountingSystemContext)">
+            <summary>
+            Public constructor
+            </summary>
+            <param name="serviceProvider">Service provider</param>
+            <param name="vokaContext">Database context</param>
+        </member>
+        <member name="M:AccountingSystem.Api.Controllers.PublicController.GetToken(AccountingSystem.Api.Models.AuthRequest)">
+            <summary>
+            Auth method
+            </summary>
+            <param name="user">User to authorize</param>
+            <returns>User info with token</returns>
+        </member>
+        <member name="M:AccountingSystem.Api.Controllers.PublicController.RegisterUser(AccountingSystem.Api.Models.AuthRequest)">
+            <summary>
+            Register method
+            </summary>
+            <param name="user">User to register</param>
+            <returns>User info with token</returns>
+        </member>
+        <member name="M:AccountingSystem.Api.Controllers.PublicController.GetAllRoles">
+            <summary>
+            Returns all roles available in system
+            </summary>
+            <returns>A list of roles</returns>
+        </member>
+        <member name="M:AccountingSystem.Api.Controllers.PublicController.GetAllPaymentTypes">
+            <summary>
+            Returns all payment types available in system
+            </summary>
+            <returns>A list of payment types</returns>
+        </member>
+        <member name="M:AccountingSystem.Api.Controllers.PublicController.GetAllSalaryTypes">
+            <summary>
+            Returns all salary types available in system
+            </summary>
+            <returns>A list of salary types</returns>
+        </member>
+        <member name="T:AccountingSystem.Api.Controllers.UserController">
+            <summary>
+            User controller
+            </summary>
+        </member>
+        <member name="M:AccountingSystem.Api.Controllers.UserController.#ctor(System.IServiceProvider,AccountingSystem.Api.Entity.AccountingSystemContext)">
+            <summary>
+            Public constructor
+            </summary>
+            <param name="serviceProvider">Service provider</param>
+            <param name="vokaContext">Database context</param>
+        </member>
+        <member name="M:AccountingSystem.Api.Controllers.UserController.CreaterUser(AccountingSystem.Api.Models.Requests.CreateUserRequest)">
+            <summary>
+            Create user
+            </summary>
+            <param name="createUserRequest">User to create</param>
+            <returns>User info with token</returns>
         </member>
         <member name="T:AccountingSystem.Api.Entity.AccountingSystemContext">
             <summary>
@@ -154,6 +191,11 @@
         <member name="P:AccountingSystem.Api.Entity.Department.Employees">
             <summary>
             Employees of this department
+            </summary>
+        </member>
+        <member name="P:AccountingSystem.Api.Entity.Department.Users">
+            <summary>
+            Users of this department
             </summary>
         </member>
         <member name="T:AccountingSystem.Api.Entity.Employee">
@@ -407,6 +449,16 @@
             User role name
             </summary>
         </member>
+        <member name="P:AccountingSystem.Api.Entity.User.DepartmentId">
+            <summary>
+            User department id
+            </summary>
+        </member>
+        <member name="P:AccountingSystem.Api.Entity.User.Department">
+            <summary>
+            User department
+            </summary>
+        </member>
         <member name="P:AccountingSystem.Api.Entity.User.CreateDate">
             <summary>
             User create date
@@ -450,6 +502,16 @@
         <member name="M:AccountingSystem.Api.Helpers.Extentions.MigrateDatabase(Microsoft.AspNetCore.Hosting.IWebHost)">
             <summary>
             Extention for db Migration
+            </summary>
+        </member>
+        <member name="M:AccountingSystem.Api.Helpers.Extentions.UserToWebUser(AccountingSystem.Api.Entity.User)">
+            <summary>
+            Coverts User to WebUser
+            </summary>
+        </member>
+        <member name="M:AccountingSystem.Api.Helpers.Extentions.GetAllEnumFields(System.Type)">
+            <summary>
+            Returns all enum fields
             </summary>
         </member>
         <member name="T:AccountingSystem.Api.Helpers.PaymentType">
@@ -573,6 +635,31 @@
             Password
             </summary>
         </member>
+        <member name="T:AccountingSystem.Api.Models.Requests.CreateUserRequest">
+            <summary>
+            Create user request model
+            </summary>
+        </member>
+        <member name="P:AccountingSystem.Api.Models.Requests.CreateUserRequest.Login">
+            <summary>
+            Login
+            </summary>
+        </member>
+        <member name="P:AccountingSystem.Api.Models.Requests.CreateUserRequest.Pass">
+            <summary>
+            Password
+            </summary>
+        </member>
+        <member name="P:AccountingSystem.Api.Models.Requests.CreateUserRequest.Role">
+            <summary>
+            User Role
+            </summary>
+        </member>
+        <member name="P:AccountingSystem.Api.Models.Requests.CreateUserRequest.DepartmentId">
+            <summary>
+            User department id
+            </summary>
+        </member>
         <member name="T:AccountingSystem.Api.Models.AuthResponse">
             <summary>
             Authenticated user
@@ -596,6 +683,51 @@
         <member name="P:AccountingSystem.Api.Models.AuthResponse.Status">
             <summary>
             User status
+            </summary>
+        </member>
+        <member name="T:AccountingSystem.Api.Models.WebEnumItem">
+            <summary>
+            Role model
+            </summary>
+        </member>
+        <member name="P:AccountingSystem.Api.Models.WebEnumItem.Id">
+            <summary>
+            Number of role
+            </summary>
+        </member>
+        <member name="P:AccountingSystem.Api.Models.WebEnumItem.Name">
+            <summary>
+            Role name
+            </summary>
+        </member>
+        <member name="T:AccountingSystem.Api.Models.WebUser">
+            <summary>
+            Create user response model
+            </summary>
+        </member>
+        <member name="P:AccountingSystem.Api.Models.WebUser.Id">
+            <summary>
+            User's identifier
+            </summary>
+        </member>
+        <member name="P:AccountingSystem.Api.Models.WebUser.Login">
+            <summary>
+            Login
+            </summary>
+        </member>
+        <member name="P:AccountingSystem.Api.Models.WebUser.Role">
+            <summary>
+            User role
+            </summary>
+        </member>
+        <member name="P:AccountingSystem.Api.Models.WebUser.CreateDate">
+            <summary>
+            User create date
+            </summary>
+        </member>
+        <member name="P:AccountingSystem.Api.Models.WebUser.LastUpdateDate">
+            <summary>
+            User last update date
             </summary>
         </member>
         <member name="T:AccountingSystem.Api.Program">

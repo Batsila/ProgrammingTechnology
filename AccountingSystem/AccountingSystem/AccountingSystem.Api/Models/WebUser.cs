@@ -1,37 +1,44 @@
-﻿using System;
+﻿using AccountingSystem.Api.Models.Requests;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace AccountingSystem.Api.Models
 {
     /// <summary>
-    /// Authenticated user
+    /// Create user response model
     /// </summary>
-    public class AuthResponse
+    public class WebUser
     {
         /// <summary>
-        /// User's security token
-        /// </summary>
-        public string Token { get; set; }
-
-        /// <summary>
-        /// User's identificational number
+        /// User's identifier
         /// </summary>
         public string Id { get; set; }
 
         /// <summary>
-        /// User login
+        /// Login
         /// </summary>
         public string Login { get; set; }
 
         /// <summary>
-        /// User status
+        /// User role
         /// </summary>
         public string Role { get; set; }
 
         /// <summary>
-        /// User department
+        /// User create date
+        /// </summary>
+        public DateTime CreateDate { get; set; }
+
+        /// <summary>
+        /// User last update date
+        /// </summary>
+        public DateTime LastUpdateDate { get; set; }
+
+        /// <summary>
+        /// User deparment
         /// </summary>
         public WebDepartment Department { get; set; }
     }
