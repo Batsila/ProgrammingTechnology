@@ -64,16 +64,16 @@ namespace AccountingSystem.Api.Helpers
         }
 
         /// <summary>
-        /// Coverts User to WebUser
+        /// Coverts Department to WebDepartment
         /// </summary>
         public static WebDepartment DepartmentToWebDepartment(this Department department)
         {
-            var webDepatment = new WebDepartment
+            var webDepartment = new WebDepartment
             {
                 Id = department.Id,
                 Name = department.Name
             };
-            return webDepatment;
+            return webDepartment;
         }
 
         /// <summary>
