@@ -42,7 +42,7 @@ namespace AccountingSystem.Api.Controllers
         /// <returns>User info with token</returns>
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(WebDepartment), (int)HttpStatusCode.Created)]
-        [HttpPost("create")]
+        [HttpPost]
         [Authorize(Policy = Const.POLICY_ADMIN)]
         public IActionResult CreateDepartment([FromBody]CreateDepartmentRequest createDepartmentRequest)
         {
@@ -140,14 +140,9 @@ namespace AccountingSystem.Api.Controllers
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.OK)]
         [HttpDelete("{id}")]
         [Authorize(Policy = Const.POLICY_ADMIN)]
-        public IActionResult DeleteDepartment(string id)
+        public IActionResult DeleteDepartment(int id)
         {
-            if (!Int32.TryParse(id, out int departmentId))
-            {
-                return BadRequest($"Id {id} is invalid");
-            }
-
-            var dbDepartment = _dbContext.Departments.FirstOrDefault(u => u.Id == departmentId);
+            var dbDepartment = _dbContext.Departments.FirstOrDefault(u => u.Id == id);
 
             if (dbDepartment == null)
             {
@@ -181,14 +176,9 @@ namespace AccountingSystem.Api.Controllers
         [ProducesResponseType(typeof(WebDepartment), (int)HttpStatusCode.OK)]
         [HttpGet("{id}")]
         [Authorize(Policy = Const.POLICY_ADMIN)]
-        public IActionResult GetDepartment(string id)
+        public IActionResult GetDepartment(int id)
         {
-            if (!Int32.TryParse(id, out int departmentId))
-            {
-                return BadRequest($"Id {id} is invalid");
-            }
-
-            var dbDepartment = _dbContext.Departments.FirstOrDefault(u => u.Id == departmentId);
+            var dbDepartment = _dbContext.Departments.FirstOrDefault(u => u.Id == id);
 
             if (dbDepartment == null)
             {
