@@ -65,6 +65,11 @@ namespace AccountingSystem.Api.Controllers
                 return BadRequest($"Login {createUserRequest.Login} is not unique");
             }
 
+            if (string.IsNullOrWhiteSpace(createUserRequest.Login))
+            {
+                return BadRequest($"User login is empty");
+            }
+
             var dbUser = new User
             {
                 Login = createUserRequest.Login,
@@ -96,7 +101,7 @@ namespace AccountingSystem.Api.Controllers
         /// Update user
         /// </summary>
         /// <param name="updateUserRequest">User to update</param>
-        /// <returns>User info with token</returns>
+        /// <returns>User model</returns>
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(WebUser), (int)HttpStatusCode.OK)]
         [HttpPatch]

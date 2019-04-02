@@ -39,7 +39,7 @@ namespace AccountingSystem.Api.Controllers
         /// Create department
         /// </summary>
         /// <param name="createDepartmentRequest">Department to create</param>
-        /// <returns>User info with token</returns>
+        /// <returns>Department info</returns>
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(WebDepartment), (int)HttpStatusCode.Created)]
         [HttpPost]
@@ -86,8 +86,8 @@ namespace AccountingSystem.Api.Controllers
         /// <summary>
         /// Update department
         /// </summary>
-        /// <param name="updateDepartmentRequest">User to update</param>
-        /// <returns>User info with token</returns>
+        /// <param name="updateDepartmentRequest">Department to update</param>
+        /// <returns>Department info</returns>
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(WebDepartment), (int)HttpStatusCode.OK)]
         [HttpPatch]
@@ -107,10 +107,6 @@ namespace AccountingSystem.Api.Controllers
             if (!string.IsNullOrEmpty(updateDepartmentRequest.Name))
             {
                 dbDepartment.Name = updateDepartmentRequest.Name;
-            }
-            else
-            {
-                return BadRequest($"Department name is empty");
             }
 
             using (var txn = _dbContext.Database.BeginTransaction())
