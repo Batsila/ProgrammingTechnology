@@ -77,6 +77,23 @@ namespace AccountingSystem.Api.Helpers
         }
 
         /// <summary>
+        /// Coverts SalaryInfo to WebSalaryInfo
+        /// </summary>
+        public static WebSalaryInfo SalaryInfoToWebSalaryInfo(this SalaryInfo salaryInfo)
+        {
+            var webSalaryInfo = new WebSalaryInfo
+            {
+                Id = salaryInfo.Id,
+                Salary = salaryInfo.Salary,
+                BankAccount = salaryInfo.BankAccount,
+                PaymentType = salaryInfo.PaymentTypeName,
+                Rate = salaryInfo.Rate,
+                Type = salaryInfo.TypeName
+            };
+            return webSalaryInfo;
+        }
+
+        /// <summary>
         /// Returns all enum fields
         /// </summary>
         public static IEnumerable<WebEnumItem> GetAllEnumFields(this Type type)

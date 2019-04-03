@@ -64,13 +64,8 @@ namespace AccountingSystem.Api.Entity
         }
 
         /// <summary>
-        /// Employee
+        /// Employees that have this salaryInfo
         /// </summary>
-        public Employee Employee { get; set; }
-
-        /// <summary>
-        /// Employee id
-        /// </summary>
-        public int EmployeeId { get; set; }
+        public ICollection<Employee> Employees { get; set; }
     }
 }

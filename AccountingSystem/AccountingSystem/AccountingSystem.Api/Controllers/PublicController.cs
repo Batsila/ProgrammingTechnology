@@ -34,11 +34,11 @@ namespace AccountingSystem.Api.Controllers
         /// Public constructor
         /// </summary>
         /// <param name="serviceProvider">Service provider</param>
-        /// <param name="vokaContext">Database context</param>
-        public PublicController(IServiceProvider serviceProvider, AccountingSystemContext vokaContext)
+        /// <param name="dbContext">Database context</param>
+        public PublicController(IServiceProvider serviceProvider, AccountingSystemContext dbContext)
         {
             _serviceProvider = serviceProvider;
-            _dbContext = vokaContext;
+            _dbContext = dbContext;
         }
 
         /// <summary>

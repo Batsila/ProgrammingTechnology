@@ -28,9 +28,8 @@ namespace AccountingSystem.Api.Entity.EntityTypeConfiguration
             builder.Property(m => m.SecondName);
 
             builder.HasOne<SalaryInfo>(m => m.SalaryInfo)
-                .WithOne(s => s.Employee)
-                .HasForeignKey<SalaryInfo>(k => k.EmployeeId)
-                .OnDelete(DeleteBehavior.Cascade);
+                .WithMany(s => s.Employees)
+                .HasForeignKey(m => m.SalaryInfoId);
 
             builder.HasOne(b => b.Department)
                 .WithMany(r => r.Employees)
