@@ -92,6 +92,22 @@ namespace AccountingSystem.Api.Helpers
             };
             return webSalaryInfo;
         }
+        /// <summary>
+        /// Coverts Employee to WebEmployee
+        /// </summary>
+        public static WebEmployee EmployeeToWebEmployee(this Employee employee)
+        {
+            var webEmployee = new WebEmployee
+            {
+                Id = employee.Id,
+                FirstName = employee.FirstName,
+                SecondName = employee.SecondName,
+                Address = employee.Address,
+                Department = employee?.Department.DepartmentToWebDepartment(),
+                SalaryInfo = employee?.SalaryInfo.SalaryInfoToWebSalaryInfo()
+            };
+            return webEmployee;
+        }
 
         /// <summary>
         /// Returns all enum fields

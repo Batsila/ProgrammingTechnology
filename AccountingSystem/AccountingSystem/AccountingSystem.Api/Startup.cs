@@ -98,10 +98,12 @@ namespace AccountingSystem.Api
                     .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme)
                     .RequireAuthenticatedUser().Build());
 
-                options.AddPolicy(Const.POLICY_CLERK,
+                options.AddPolicy(Const.POLICY_USER,
                     policy => policy.RequireRole(nameof(UserRoles.Clerk), nameof(UserRoles.Accountant), nameof(UserRoles.Admin)));
+                options.AddPolicy(Const.POLICY_ACCOUNTING_OFFICER,
+                    policy => policy.RequireRole(nameof(UserRoles.Clerk), nameof(UserRoles.Accountant)));
                 options.AddPolicy(Const.POLICY_ACCOUNTANT,
-                    policy => policy.RequireRole(nameof(UserRoles.Accountant), nameof(UserRoles.Admin)));
+                    policy => policy.RequireRole(nameof(UserRoles.Accountant)));
                 options.AddPolicy(Const.POLICY_ADMIN,
                     policy => policy.RequireRole(nameof(UserRoles.Admin)));
 

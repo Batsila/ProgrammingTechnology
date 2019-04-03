@@ -1,20 +1,20 @@
-﻿using AccountingSystem.Api.Models.Requests;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace AccountingSystem.Api.Models
+namespace AccountingSystem.Api.Models.Requests
 {
     /// <summary>
-    /// Includes info about employee
+    /// Update employee request model
     /// </summary>
-    public class WebEmployee
+    public class UpdateEmployeeRequest
     {
         /// <summary>
-        /// Employee identifier
+        /// Employee id
         /// </summary>
+        [Required]
         public int Id { get; set; }
 
         /// <summary>
@@ -30,17 +30,17 @@ namespace AccountingSystem.Api.Models
         /// <summary>
         /// Employee address
         /// </summary>
+        
         public string Address { get; set; }
 
         /// <summary>
-        /// Information about employee tariff rate or salary type
+        /// Salary id
         /// </summary>
-        public WebSalaryInfo SalaryInfo { get; set; }
+        public int SalaryId { get; set; }
 
         /// <summary>
-        /// Information about employee department
+        /// Department id
         /// </summary>
-        public WebDepartment Department { get; set; }
-
+        public int DepartmentId { get; set; }
     }
 }

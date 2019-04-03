@@ -6,6 +6,7 @@ using AccountingSystem.Api.Entity;
 using AccountingSystem.Api.Helpers;
 using AccountingSystem.Api.Managers.Exceptions;
 using AccountingSystem.Api.Models;
+using AccountingSystem.Api.Models.Requests;
 
 namespace AccountingSystem.Api.Managers
 {
@@ -29,18 +30,31 @@ namespace AccountingSystem.Api.Managers
         /// Creates new employee
         /// </summary>
         /// <param name="employee">Create employee request</param>
-        public Employee CreateEmployee(Employee employee)
+        public WebEmployee CreateEmployee(CreateEmployeeRequest employee)
         {
-            if (string.IsNullOrWhiteSpace(employee.FirstName))
-                throw new IncorrectDataException("First name required");
+            var dbDepartment = _dbContext.Departments.First(d => d.Id == employee.DepartmentId);
 
-            if (string.IsNullOrWhiteSpace(employee.SecondName))
-                throw new IncorrectDataException("Second name required");
+            if (dbDepartment == null)
+            {
+                throw new NotFoundException($"Department {employee.DepartmentId} does not exist");
+            }
+
+            var dbSalaryInfo = _dbContext.Salaries.First(d => d.Id == employee.SalaryId);
+
+            if (dbSalaryInfo == null)
+            {
+                throw new NotFoundException($"Salary info {employee.DepartmentId} does not exist");
+            }
 
             var dbEmployee = new Employee
             {
                 FirstName = employee.FirstName,
-                SecondName = employee.SecondName
+                SecondName = employee.SecondName,
+                Address = employee.Address,
+                Department = dbDepartment,
+                DepartmentId = employee.DepartmentId,
+                SalaryInfo = dbSalaryInfo,
+                SalaryInfoId = employee.SalaryId,
             };
 
             using (var txn = _dbContext.Database.BeginTransaction())
@@ -59,28 +73,52 @@ namespace AccountingSystem.Api.Managers
                 }
             }
 
-            return dbEmployee;
+            return dbEmployee.EmployeeToWebEmployee();
         }
 
         /// <summary>
         /// Updates exist employee
         /// </summary>
         /// <param name="employee">Employee to update</param>
-        public Employee UpdateEmployee(Employee employee)
+        public WebEmployee UpdateEmployee(UpdateEmployeeRequest employee)
         {
             var dbEmployee = _dbContext.Employees.FirstOrDefault(m => m.Id == employee.Id);
 
             if (dbEmployee == null)
+            {
                 throw new NotFoundException($"Employee with id '{employee.Id}' not exist");
+            }
 
-            if (employee.FirstName == string.Empty)
-                throw new IncorrectDataException("Name must be not empty");
+            if (!string.IsNullOrEmpty(employee.FirstName))
+            {
+                dbEmployee.FirstName = employee.FirstName;
+            }
 
-            if (employee.SecondName == string.Empty)
-                throw new IncorrectDataException("Second name must be not empty");
+            if (!string.IsNullOrEmpty(employee.SecondName))
+            {
+                dbEmployee.SecondName = employee.SecondName;
+            }
 
-            dbEmployee.FirstName = employee.FirstName ?? dbEmployee.FirstName;
-            dbEmployee.SecondName = employee.SecondName ?? dbEmployee.SecondName;
+            if (!string.IsNullOrEmpty(employee.Address))
+            {
+                dbEmployee.Address = employee.Address;
+            }
+
+            if (employee.DepartmentId > 0)
+            {
+                var dbDepartment = _dbContext.Departments.First(d => d.Id == employee.DepartmentId);
+
+                dbEmployee.Department = dbDepartment ?? throw new NotFoundException($"Department {employee.DepartmentId} does not exist");
+                dbEmployee.DepartmentId = employee.DepartmentId;
+            }
+
+            if (employee.SalaryId > 0)
+            {
+                var dbSalaryInfo = _dbContext.Salaries.First(d => d.Id == employee.SalaryId);
+
+                dbEmployee.SalaryInfo = dbSalaryInfo ?? throw new NotFoundException($"Salary info {employee.DepartmentId} does not exist");
+                dbEmployee.SalaryInfoId = employee.SalaryId;
+            }
 
             using (var txn = _dbContext.Database.BeginTransaction())
             {
@@ -98,7 +136,7 @@ namespace AccountingSystem.Api.Managers
                 }
             }
 
-            return dbEmployee;
+            return dbEmployee.EmployeeToWebEmployee();
         }
 
         /// <summary>
@@ -110,7 +148,9 @@ namespace AccountingSystem.Api.Managers
             var dbEmploye = _dbContext.Employees.FirstOrDefault(m => m.Id == employeeId);
 
             if (dbEmploye == null)
+            {
                 throw new NotFoundException($"Employee with id '{employeeId}' not exist");
+            }
 
             using (var txn = _dbContext.Database.BeginTransaction())
             {
@@ -133,23 +173,25 @@ namespace AccountingSystem.Api.Managers
         /// Returns employee by id
         /// </summary>
         /// <param name="id">Employee id</param>
-        public Employee GetEmployee(int id)
+        public WebEmployee GetEmployee(int id)
         {
             var dbEmployee = _dbContext.Employees.FirstOrDefault(m => m.Id == id);
 
             if (dbEmployee == null)
+            {
                 throw new NotFoundException($"Employee with id '{id}' not exist");
+            }
 
-            return dbEmployee;
+            return dbEmployee.EmployeeToWebEmployee();
         }
 
         /// <summary>
         /// Returns all employees
         /// </summary>
         /// <returns>All employees</returns>
-        public IEnumerable<Employee> GetAllEmployees()
+        public IEnumerable<WebEmployee> GetAllEmployees()
         {
-            var employees = _dbContext.Employees;
+            var employees = _dbContext.Employees.Select(e => e.EmployeeToWebEmployee());
             return employees;
         }
     }

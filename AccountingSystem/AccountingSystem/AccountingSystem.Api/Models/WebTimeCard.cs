@@ -11,7 +11,7 @@ namespace AccountingSystem.Api.Models
     public class WebTimeCard
     {
         /// <summary>
-        /// TimeCard's identifier
+        /// TimeCard identifier
         /// </summary>
         public int Id { get; set; }
 
@@ -26,7 +26,7 @@ namespace AccountingSystem.Api.Models
         public double Time { get; set; }
 
         /// <summary>
-        /// Employee's Id
+        /// Employee Id
         /// </summary>
         public int EmployeeId { get; set; }
 
