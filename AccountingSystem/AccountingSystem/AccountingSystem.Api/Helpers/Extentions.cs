@@ -92,6 +92,7 @@ namespace AccountingSystem.Api.Helpers
             };
             return webSalaryInfo;
         }
+
         /// <summary>
         /// Coverts Employee to WebEmployee
         /// </summary>
@@ -107,6 +108,22 @@ namespace AccountingSystem.Api.Helpers
                 SalaryInfo = employee?.SalaryInfo.SalaryInfoToWebSalaryInfo()
             };
             return webEmployee;
+        }
+
+        /// <summary>
+        /// Coverts TimeCard to WebTimeCard
+        /// </summary>
+        public static WebTimeCard TimeCardToWebTimeCard(this TimeCard timeCard)
+        {
+            var webTimeCard = new WebTimeCard
+            {
+               Id = timeCard.Id,
+               Comment = timeCard.Comment,
+               Time = timeCard.Time,
+               CreateDate = timeCard.CreateDate,
+               Employee = timeCard.Employee?.EmployeeToWebEmployee()
+            };
+            return webTimeCard;
         }
 
         /// <summary>

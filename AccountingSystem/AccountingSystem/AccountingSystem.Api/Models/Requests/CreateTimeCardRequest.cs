@@ -1,38 +1,33 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace AccountingSystem.Api.Models
+namespace AccountingSystem.Api.Models.Requests
 {
     /// <summary>
-    /// Web TimeCard
+    /// Create time card request model
     /// </summary>
-    public class WebTimeCard
+    public class CreateTimeCardRequest
     {
-        /// <summary>
-        /// TimeCard identifier
-        /// </summary>
-        public int Id { get; set; }
-
         /// <summary>
         /// TimeCard comments
         /// </summary>
+        [Required]
         public string Comment { get; set; }
 
         /// <summary>
         /// Total time (Logged)
         /// </summary>
+        [Required]
+        [Range(1, 24, ErrorMessage = "Value must be between 1 and 24")]
         public double Time { get; set; }
 
         /// <summary>
-        /// Employee
+        /// Employee Id
         /// </summary>
-        public WebEmployee Employee { get; set; }
-
-        /// <summary>
-        /// TimeCard creation time
-        /// </summary>
-        public DateTime CreateDate { get; set; }
+        [Required]
+        public int EmployeeId { get; set; }
     }
 }
