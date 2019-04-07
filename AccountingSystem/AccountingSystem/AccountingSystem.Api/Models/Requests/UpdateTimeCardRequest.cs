@@ -1,18 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace AccountingSystem.Api.Models
+namespace AccountingSystem.Api.Models.Requests
 {
     /// <summary>
-    /// Web TimeCard
+    /// Update time card request model
     /// </summary>
-    public class WebTimeCard
+    public class UpdateTimeCardRequest
     {
         /// <summary>
-        /// TimeCard identifier
+        /// TimeCard id
         /// </summary>
+        [Required]
         public int Id { get; set; }
 
         /// <summary>
@@ -26,13 +28,8 @@ namespace AccountingSystem.Api.Models
         public double Time { get; set; }
 
         /// <summary>
-        /// Employee
+        /// Employee Id
         /// </summary>
-        public WebEmployee Employee { get; set; }
-
-        /// <summary>
-        /// TimeCard creation time
-        /// </summary>
-        public DateTime CreateDate { get; set; }
+        public int EmployeeId { get; set; }
     }
 }

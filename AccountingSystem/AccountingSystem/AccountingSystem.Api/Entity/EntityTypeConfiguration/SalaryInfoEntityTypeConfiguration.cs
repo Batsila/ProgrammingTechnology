@@ -35,9 +35,9 @@ namespace AccountingSystem.Api.Entity.EntityTypeConfiguration
 
             builder.Property(m => m.BankAccount);
 
-            builder.HasOne<Employee>(m => m.Employee)
-                    .WithOne(s => s.SalaryInfo)
-                    .HasForeignKey<SalaryInfo>(k => k.EmployeeId);
+            builder.HasMany(m => m.Employees)
+                .WithOne(e => e.SalaryInfo)
+                .HasForeignKey(m => m.SalaryInfoId);
         }
     }
 }

@@ -77,6 +77,56 @@ namespace AccountingSystem.Api.Helpers
         }
 
         /// <summary>
+        /// Coverts SalaryInfo to WebSalaryInfo
+        /// </summary>
+        public static WebSalaryInfo SalaryInfoToWebSalaryInfo(this SalaryInfo salaryInfo)
+        {
+            var webSalaryInfo = new WebSalaryInfo
+            {
+                Id = salaryInfo.Id,
+                Salary = salaryInfo.Salary,
+                BankAccount = salaryInfo.BankAccount,
+                PaymentType = salaryInfo.PaymentTypeName,
+                Rate = salaryInfo.Rate,
+                Type = salaryInfo.TypeName
+            };
+            return webSalaryInfo;
+        }
+
+        /// <summary>
+        /// Coverts Employee to WebEmployee
+        /// </summary>
+        public static WebEmployee EmployeeToWebEmployee(this Employee employee)
+        {
+            var webEmployee = new WebEmployee
+            {
+                Id = employee.Id,
+                FirstName = employee.FirstName,
+                SecondName = employee.SecondName,
+                Address = employee.Address,
+                Department = employee?.Department.DepartmentToWebDepartment(),
+                SalaryInfo = employee?.SalaryInfo.SalaryInfoToWebSalaryInfo()
+            };
+            return webEmployee;
+        }
+
+        /// <summary>
+        /// Coverts TimeCard to WebTimeCard
+        /// </summary>
+        public static WebTimeCard TimeCardToWebTimeCard(this TimeCard timeCard)
+        {
+            var webTimeCard = new WebTimeCard
+            {
+               Id = timeCard.Id,
+               Comment = timeCard.Comment,
+               Time = timeCard.Time,
+               CreateDate = timeCard.CreateDate,
+               Employee = timeCard.Employee?.EmployeeToWebEmployee()
+            };
+            return webTimeCard;
+        }
+
+        /// <summary>
         /// Returns all enum fields
         /// </summary>
         public static IEnumerable<WebEnumItem> GetAllEnumFields(this Type type)

@@ -11,17 +11,21 @@ namespace AccountingSystem.Api.Helpers
     public static class Const
     {
         /// <summary>
-        /// Allowed to Clerk, Accountant and Admin
+        /// Allowed to Clerk and Accountant
         /// </summary>
-        public const string POLICY_CLERK = "Clerk";
+        public const string POLICY_ACCOUNTING_OFFICER = "AccountingOfficer";
         /// <summary>
-        /// Allowed to Accountant and Admin
+        /// Allowed to Accountant
         /// </summary>
         public const string POLICY_ACCOUNTANT = "Accountant";
         /// <summary>
         /// Allowed to Admin
         /// </summary>
         public const string POLICY_ADMIN = "Admin";
+        /// <summary>
+        /// Allowed to Clerk, Accountant and Admin
+        /// </summary>
+        public const string POLICY_USER = "User";
         /// <summary>
         /// Default department id
         /// </summary>

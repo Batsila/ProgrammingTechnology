@@ -8,6 +8,8 @@ using AccountingSystem.Api.Helpers;
 using AccountingSystem.Api.Managers;
 using AccountingSystem.Api.Models;
 using AccountingSystem.Api.Entity;
+using AccountingSystem.Api.Models.Requests;
+using System.Net;
 
 namespace AccountingSystem.Api.Controllers
 {
@@ -18,7 +20,7 @@ namespace AccountingSystem.Api.Controllers
     [ApiController]
     public class EmployeeController : ControllerBase
     {
-        private readonly EmployeeManager _EmployeeManager;
+        private readonly EmployeeManager _employeeManager;
 
         /// <summary>
         /// Constructor with injected parameters
@@ -26,32 +28,7 @@ namespace AccountingSystem.Api.Controllers
         /// <param name="employeeManager"></param>
         public EmployeeController(EmployeeManager employeeManager)
         {
-            _EmployeeManager = employeeManager;
-        }
-
-        /// <summary>
-        /// Returns all employees
-        /// </summary>
-        /// <returns>All employees</returns>
-        [HttpGet("all")]
-        [Authorize(Policy = Const.POLICY_CLERK)]
-        public ActionResult<IEnumerable<Employee>> GetAllEmployees()
-        {
-            var employees = _EmployeeManager.GetAllEmployees();
-            return Ok(employees);
-        }
-
-        /// <summary>
-        /// Returns employee by id
-        /// </summary>
-        /// <param name="id">Employee id</param>
-        /// <returns>Employee</returns>
-        [HttpGet("{id}")]
-        [Authorize(Policy = Const.POLICY_CLERK)]
-        public ActionResult<IEnumerable<Employee>> GetEmployee(int id)
-        {
-            var employee = _EmployeeManager.GetEmployee(id);
-            return Ok(employee);
+            _employeeManager = employeeManager;
         }
 
         /// <summary>
@@ -59,24 +36,28 @@ namespace AccountingSystem.Api.Controllers
         /// </summary>
         /// <param name="createEmployeeRequest"></param>
         /// <returns>Employee</returns>
+        [ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(typeof(WebEmployee), (int)HttpStatusCode.OK)]
         [HttpPost]
         [Authorize(Policy = Const.POLICY_ADMIN)]
-        public ActionResult<IEnumerable<Employee>> CreateEmployee([FromBody]Employee createEmployeeRequest)
+        public IActionResult CreateEmployee([FromBody]CreateEmployeeRequest createEmployeeRequest)
         {
-            var employee = _EmployeeManager.CreateEmployee(createEmployeeRequest);
+            var employee = _employeeManager.CreateEmployee(createEmployeeRequest);
             return Ok(employee);
         }
 
         /// <summary>
-        /// Updates exist employee
+        /// Update exist employee
         /// </summary>
         /// <param name="updateEmployeeRequest">Employee to update</param>
         /// <returns>Employee</returns>
+        [ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(typeof(WebEmployee), (int)HttpStatusCode.OK)]
         [HttpPatch]
         [Authorize(Policy = Const.POLICY_ACCOUNTANT)]
-        public ActionResult<IEnumerable<Employee>> UpdateEmployee([FromBody]Employee updateEmployeeRequest)
+        public IActionResult UpdateEmployee([FromBody]UpdateEmployeeRequest updateEmployeeRequest)
         {
-            var employee = _EmployeeManager.UpdateEmployee(updateEmployeeRequest);
+            var employee = _employeeManager.UpdateEmployee(updateEmployeeRequest);
             return Ok(employee);
         }
 
@@ -84,12 +65,43 @@ namespace AccountingSystem.Api.Controllers
         /// Deletes exist employee
         /// </summary>
         /// <param name="id">Employee id</param>
+        [ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(typeof(string), (int)HttpStatusCode.OK)]
         [HttpDelete("{id}")]
         [Authorize(Policy = Const.POLICY_ADMIN)]
-        public ActionResult<Employee> DeleteEmployee(int id)
+        public IActionResult DeleteEmployee(int id)
         {
-            _EmployeeManager.DeleteEmployee(id);
+            _employeeManager.DeleteEmployee(id);
             return Ok();
+        }
+
+        /// <summary>
+        /// Return employee by id
+        /// </summary>
+        /// <param name="id">Employee id</param>
+        /// <returns>Employee</returns>
+        [ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(typeof(WebEmployee), (int)HttpStatusCode.OK)]
+        [HttpGet("{id}")]
+        [Authorize(Policy = Const.POLICY_USER)]
+        public IActionResult GetEmployee(int id)
+        {
+            var employee = _employeeManager.GetEmployee(id);
+            return Ok(employee);
+        }
+
+        /// <summary>
+        /// Return all employees
+        /// </summary>
+        /// <returns>All employees</returns>
+        [ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(typeof(IEnumerable<WebEmployee>), (int)HttpStatusCode.OK)]
+        [HttpGet("all")]
+        [Authorize(Policy = Const.POLICY_USER)]
+        public IActionResult GetAllEmployees()
+        {
+            var employees = _employeeManager.GetAllEmployees();
+            return Ok(employees);
         }
 
     }

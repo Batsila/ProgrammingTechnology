@@ -33,6 +33,7 @@ namespace AccountingSystem.Api.Models.Requests
         /// <summary>
         /// User department id
         /// </summary>
+        [Required]
         public int DepartmentId { get; set; }
     }
 }
