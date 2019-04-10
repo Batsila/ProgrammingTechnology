@@ -173,7 +173,7 @@ namespace AccountingSystem.Api.Controllers
         /// Get department
         /// </summary>
         /// <param name="id">Department id</param>
-        [ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(typeof(string), (int)HttpStatusCode.NotFound)]
         [ProducesResponseType(typeof(WebDepartment), (int)HttpStatusCode.OK)]
         [HttpGet("{id}")]
         [Authorize(Policy = Const.POLICY_ADMIN)]
@@ -183,7 +183,7 @@ namespace AccountingSystem.Api.Controllers
 
             if (dbDepartment == null)
             {
-                return BadRequest($"Department {id} does not exist");
+                return NotFound($"Department <{id}> not found!");
             }
 
             return Ok(dbDepartment.DepartmentToWebDepartment());

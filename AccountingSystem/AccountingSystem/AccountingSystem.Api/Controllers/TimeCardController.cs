@@ -191,17 +191,17 @@ namespace AccountingSystem.Api.Controllers
         /// Get timecard by id
         /// </summary>
         /// <param name="id">TimeCard id</param>
-        [ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(typeof(string), (int)HttpStatusCode.NotFound)]
         [ProducesResponseType(typeof(WebTimeCard), (int)HttpStatusCode.OK)]
         [HttpGet("{id}")]
-        [Authorize(Policy = Const.POLICY_ADMIN)]
+        [Authorize(Policy = Const.POLICY_ACCOUNTING_OFFICER)]
         public IActionResult GetTimeCardById(int id)
         {
             var dbTimeCard = _dbContext.TimeCards.FirstOrDefault(u => u.Id == id);
 
             if (dbTimeCard == null)
             {
-                return BadRequest($"TimeCard {id} does not exist");
+                return NotFound($"Timecard <{id}> not found!");
             }
 
             return Ok(dbTimeCard.TimeCardToWebTimeCard());
@@ -211,27 +211,44 @@ namespace AccountingSystem.Api.Controllers
         /// Get employee timecards
         /// </summary>
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(typeof(string), (int)HttpStatusCode.NotFound)]
         [ProducesResponseType(typeof(IEnumerable<WebTimeCard>), (int)HttpStatusCode.OK)]
         [HttpGet("all")]
-        [Authorize(Policy = Const.POLICY_ADMIN)]
-        public IActionResult GetTimeCard(int employeeId, DateTime fromDate, DateTime toDate)
+        [Authorize(Policy = Const.POLICY_ACCOUNTING_OFFICER)]
+        public IActionResult GetTimeCard(int employeeId, string fromDate, string toDate)
         {
-            var timeCards = _dbContext.TimeCards.Where(u => u.EmployeeId == employeeId).Select(u => u.TimeCardToWebTimeCard());
-            if (fromDate != default(DateTime))
+            var dbEmployee = _dbContext.Employees.FirstOrDefault(m => m.Id == employeeId);
+
+            if (dbEmployee == null)
             {
-                if (toDate != default(DateTime))
-                {
-                    timeCards = _dbContext.TimeCards.Where(u => u.EmployeeId == employeeId).Where(u => u.CreateDate >= fromDate).Where(u => u.CreateDate <= toDate).Select(u => u.TimeCardToWebTimeCard());
-                }
-                else
-                {
-                    timeCards = _dbContext.TimeCards.Where(u => u.EmployeeId == employeeId).Where(u => u.CreateDate >= fromDate).Select(u => u.TimeCardToWebTimeCard());
-                }
+                return NotFound($"Employee with id '{employeeId}' not exist");
             }
+
+            var timeCards = _dbContext.TimeCards.Where(u => u.EmployeeId == employeeId).Select(u => u.TimeCardToWebTimeCard());
 
             if (timeCards == null)
             {
-                return BadRequest($"TimeCards {employeeId} does not exist");
+                return NotFound($"Timecards for <{employeeId}> not found!");
+            }
+
+            if (!string.IsNullOrEmpty(fromDate))
+            {
+                if (!DateTime.TryParse(fromDate, out DateTime from))
+                {
+                    return BadRequest($"Date {from} is invalid");
+                }
+                if (!string.IsNullOrEmpty(toDate))
+                {
+                    if (!DateTime.TryParse(toDate, out DateTime to))
+                    {
+                        return BadRequest($"Date {to} is invalid");
+                    }
+                    timeCards = timeCards.TakeWhile(p => p.CreateDate >= from && p.CreateDate <= to);
+                }
+                else
+                {
+                    timeCards = timeCards.TakeWhile(p => p.CreateDate >= from);
+                }
             }
             return Ok(timeCards);
         }
