@@ -186,5 +186,54 @@ namespace AccountingSystem.Api.Controllers
 
             return Ok();
         }
+
+        /// <summary>
+        /// Get timecard by id
+        /// </summary>
+        /// <param name="id">TimeCard id</param>
+        [ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(typeof(WebTimeCard), (int)HttpStatusCode.OK)]
+        [HttpGet("{id}")]
+        [Authorize(Policy = Const.POLICY_ADMIN)]
+        public IActionResult GetTimeCardById(int id)
+        {
+            var dbTimeCard = _dbContext.TimeCards.FirstOrDefault(u => u.Id == id);
+
+            if (dbTimeCard == null)
+            {
+                return BadRequest($"TimeCard {id} does not exist");
+            }
+
+            return Ok(dbTimeCard.TimeCardToWebTimeCard());
+        }
+
+        /// <summary>
+        /// Get employee timecards
+        /// </summary>
+        [ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(typeof(IEnumerable<WebTimeCard>), (int)HttpStatusCode.OK)]
+        [HttpGet("all")]
+        [Authorize(Policy = Const.POLICY_ADMIN)]
+        public IActionResult GetTimeCard(int employeeId, DateTime fromDate, DateTime toDate)
+        {
+            var timeCards = _dbContext.TimeCards.Where(u => u.EmployeeId == employeeId).Select(u => u.TimeCardToWebTimeCard());
+            if (fromDate != default(DateTime))
+            {
+                if (toDate != default(DateTime))
+                {
+                    timeCards = _dbContext.TimeCards.Where(u => u.EmployeeId == employeeId).Where(u => u.CreateDate >= fromDate).Where(u => u.CreateDate <= toDate).Select(u => u.TimeCardToWebTimeCard());
+                }
+                else
+                {
+                    timeCards = _dbContext.TimeCards.Where(u => u.EmployeeId == employeeId).Where(u => u.CreateDate >= fromDate).Select(u => u.TimeCardToWebTimeCard());
+                }
+            }
+
+            if (timeCards == null)
+            {
+                return BadRequest($"TimeCards {employeeId} does not exist");
+            }
+            return Ok(timeCards);
+        }
     }
 }
