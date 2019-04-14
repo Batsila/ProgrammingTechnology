@@ -24,7 +24,7 @@ namespace AccountingSystem.Api.Controllers
     /// </summary>
     [AllowAnonymous]
     [Route("api/")]
-    [EnableCors("AllowSpecificOrigin")]
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class PublicController : ControllerBase
     {
         private readonly IServiceProvider _serviceProvider;
