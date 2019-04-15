@@ -16,6 +16,7 @@ using AccountingSystem.Api.Entity;
 using AccountingSystem.Api.Helpers;
 using AccountingSystem.Api.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Net.Http;
 
 namespace AccountingSystem.Api.Controllers
 {
@@ -24,7 +25,6 @@ namespace AccountingSystem.Api.Controllers
     /// </summary>
     [AllowAnonymous]
     [Route("api/")]
-    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class PublicController : ControllerBase
     {
         private readonly IServiceProvider _serviceProvider;

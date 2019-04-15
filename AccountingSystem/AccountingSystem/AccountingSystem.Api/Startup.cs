@@ -55,8 +55,6 @@ namespace AccountingSystem.Api
         /// <param name="services">Collection of services</param>
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddCors();
-
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             var globalConnectionString = _configuration.GetConnectionString("GlobalConnection");
@@ -138,8 +136,6 @@ namespace AccountingSystem.Api
         /// <param name="env">Hosting environment</param>
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            app.UseCors(builder => builder.AllowAnyOrigin());
-
             app.UseExceptionHandler(appBuilder =>
             {
                 appBuilder.Run(async context =>
