@@ -9,14 +9,14 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace DemoAccountingSystem.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         public IActionResult Index()
         {
             return View();
         }
-
-        [Authorize(Roles = "admin")]
+        
         public IActionResult Team()
         {
             return View();
