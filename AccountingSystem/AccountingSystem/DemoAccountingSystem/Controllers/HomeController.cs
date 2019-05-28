@@ -6,18 +6,38 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using DemoAccountingSystem.Models;
 using Microsoft.AspNetCore.Authorization;
+using DemoAccountingSystem.Data;
 
 namespace DemoAccountingSystem.Controllers
 {
-    [Authorize]
     public class HomeController : Controller
     {
+        private ApplicationDbContext _dbContext;
+
+        public HomeController(ApplicationDbContext applicationDbContext)
+        {
+            _dbContext = applicationDbContext;
+        }
+
         public IActionResult Index()
         {
             return View();
         }
-        
+
         public IActionResult Team()
+        {
+            return View();
+        }
+
+        [Authorize]
+        public IActionResult EmployeeList()
+        {
+            var employees = _dbContext.Employees.ToList();
+            return View(new EmployeeListViewModel { Employees = employees });
+        }
+
+        [Authorize]
+        public IActionResult CreateEmployeeList()
         {
             return View();
         }
