@@ -3,6 +3,13 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <h2>To Demo Accounting System</h2>
+    @if (User.Identity.IsAuthenticated)
+    {
+        <h1 class="display-4">Welcome @User.Identity.Name!</h1>
+        <h2>To Demo Accounting System</h2>
+    }
+    else
+    {
+        <h1>Demo Accounting System</h1>
+    }
 </div>

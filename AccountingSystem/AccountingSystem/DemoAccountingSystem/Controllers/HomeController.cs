@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using DemoAccountingSystem.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace DemoAccountingSystem.Controllers
 {
@@ -15,6 +16,7 @@ namespace DemoAccountingSystem.Controllers
             return View();
         }
 
+        [Authorize(Roles = "admin")]
         public IActionResult Team()
         {
             return View();
