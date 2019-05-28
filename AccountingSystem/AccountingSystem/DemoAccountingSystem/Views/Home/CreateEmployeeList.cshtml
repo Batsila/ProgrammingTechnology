@@ -1,7 +1,33 @@
-﻿
+﻿@model CreateEmployListViewModel
 @{
     ViewData["Title"] = "CreateEmployeeList";
 }
 
-<h1>CreateEmployeeList</h1>
+<h1>New Employees</h1>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">First name</th>
+            <th scope="col">Last name</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.RemoteEmployees)
+        {
+            <tr>
+                <td>
+                    @item.FirstName
+                </td>
+                <td>
+                    @item.LastName
+                </td>
+                <td>
+                    @Html.ActionLink("Create", "CreateEmployee", new { id = item.Id })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
 
